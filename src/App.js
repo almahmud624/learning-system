@@ -126,7 +126,7 @@ function App() {
           }
         />
         <Route
-          path="/admin/video/edit"
+          path="/admin/video/edit/:videoId"
           element={
             <PrivateAdminRoute>
               <EditableVideo />

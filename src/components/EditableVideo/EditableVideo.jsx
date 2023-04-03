@@ -1,14 +1,25 @@
-import { useState } from "react";
-import { useAddVideoMutation } from "../../features/videos/videosApi";
+import { useEffect, useState } from "react";
+import {
+  useAddVideoMutation,
+  useEditVideoMutation,
+  useGetVideosQuery,
+} from "../../features/videos/videosApi";
+import { useLocation, useParams } from "react-router-dom";
 
 export const EditableVideo = () => {
-  const [addVideo, { isSuccess, isError }] = useAddVideoMutation();
+  const [addVideo, { isSuccess: addSuccess, isError: addError }] =
+    useAddVideoMutation();
+  const [editVideo, { isSuccess: editSuccess, isError: editError }] =
+    useEditVideoMutation();
+  const { data: videos } = useGetVideosQuery();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [views, setViews] = useState("");
   const [duration, setDuration] = useState("");
   const [err, setErr] = useState({});
+  const { videoId } = useParams();
+  const { pathname } = useLocation();
 
   // checking form validation
   const formValidation = (url, duration, views) => {
@@ -25,16 +36,37 @@ export const EditableVideo = () => {
     setErr(formErr);
     return formErr;
   };
+  // find editable video
+  const video = videos?.find((video) => video?.id === Number(videoId));
 
+  // add & edit video
   const handleSubmit = (e) => {
     e.preventDefault();
     const formErr = formValidation(url, duration, views);
     if (Object.keys(formErr).length !== 0) return;
     const createdAt = new Date(Date.now()).toJSON();
-    const newVideo = { title, description, url, views, duration, createdAt };
-    addVideo(newVideo);
+    const videoData = { title, description, url, views, duration };
+    if (pathname === "/admin/video/add") {
+      videoData.createdAt = createdAt;
+      addVideo(videoData);
+    } else {
+      videoData.createdAt = video?.createdAt;
+      editVideo({ videoId, videoData });
+    }
   };
-  console.log(isSuccess);
+
+  console.log(editSuccess);
+  useEffect(() => {
+    if (video?.id) {
+      const { title, description, views, duration, url } = video || {};
+      setTitle(title);
+      setDescription(description);
+      setDuration(duration);
+      setViews(views);
+      setUrl(url);
+    }
+  }, [video]);
+
   return (
     <>
       <section class="py-6 bg-primary h-screen">
@@ -58,6 +90,7 @@ export const EditableVideo = () => {
                 name="title"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="lorem ipsum dolar emmet"
+                value={title}
                 required
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -75,6 +108,7 @@ export const EditableVideo = () => {
                 name="description"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="lorem ipsum dolar emmet"
+                value={description}
                 required
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -92,6 +126,7 @@ export const EditableVideo = () => {
                 name="url"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="https://example.com"
+                value={url}
                 required
                 onChange={(e) => {
                   setUrl(e.target.value);
@@ -119,6 +154,7 @@ export const EditableVideo = () => {
                 name="views"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="12.4k"
+                value={views}
                 required
                 onChange={(e) => {
                   setViews(e.target.value);
@@ -146,6 +182,7 @@ export const EditableVideo = () => {
                 name="duration"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="12:12"
+                value={duration}
                 required
                 onChange={(e) => {
                   setDuration(e.target.value);

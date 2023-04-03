@@ -62,6 +62,13 @@
       "name": "Aphrodite Grant",
       "role": "student",
       "id": 9
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$0TeGgW4ZINs/hD4nTzWKluQkEt8ZHojykEzvVoCXbLhVtRFjgnxnm",
+      "name": "Macy Bruce",
+      "role": "admin",
+      "id": 10
     }
   ],
   "videos": [
@@ -86,11 +93,20 @@
     {
       "title": "json server",
       "description": "What is the JSON server? Image result for json server JSON Server is a Node Module that you can use to create demo rest json webservice in less than a minute. All you need is a JSON file for sample data.",
-      "url": "https://youtu.be/OAOCa2qYq2Y",
+      "url": "https://www.youtube.com/embed/wN0n2gj0z9o",
       "views": "15.53k",
       "duration": "10:12",
       "createdAt": "2023-04-03T11:59:37.091Z",
       "id": 3
+    },
+    {
+      "title": "১০০% বিগিনার ফ্রেন্ডলি কোর্স",
+      "description": "১০০% বিগিনার ফ্রেন্ডলি কোর্স | JavaScript for Absolute Beginner | Stack Learner",
+      "url": "https://www.youtube.com/embed/Ky1_8cdIQBw",
+      "views": "12.5k",
+      "duration": "45:23",
+      "createdAt": "2023-04-03T14:45:36.121Z",
+      "id": 5
     }
   ],
   "assignments": [

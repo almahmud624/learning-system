@@ -17,8 +17,14 @@ export const Navigation = () => {
             <img className="h-10" src={logo} alt="logo" />
           </Link>
           <div className="flex items-center gap-3">
-            <Link to="/leaderboard">Leaderboard</Link>
-            <h2 className="font-bold">{user?.name}</h2>
+            {user?.role === "student" ? (
+              <>
+                <Link to="/leaderboard">Leaderboard</Link>
+                <h2 className="font-bold">{user?.name}</h2>
+              </>
+            ) : (
+              <h2 className="font-bold">Admin</h2>
+            )}
             <button
               className="flex gap-2 border border-red-500 bg-red-600 items-center px-4 py-1 rounded-full text-sm transition-all hover:bg-red-700 "
               onClick={signOut}

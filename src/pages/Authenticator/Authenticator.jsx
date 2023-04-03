@@ -165,7 +165,7 @@ export const Authenticator = () => {
               <div className="flex items-center justify-end">
                 <div className="text-sm">
                   <Link
-                    to="/registration"
+                    to="/admin"
                     className="font-medium text-violet-600 hover:text-violet-500"
                   >
                     Forgot your password?

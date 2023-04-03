@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { useDeleteVideoMutation } from "../../features/videos/videosApi";
 
 export const VideoTable = ({ videos = {} }) => {
+  const [deleteVideo, { isSuccess, isError }] = useDeleteVideoMutation();
+  const handleDeleteVideo = (id) => {
+    deleteVideo(id);
+  };
+  console.log(isSuccess);
   return (
     <>
       <div className="px-3 py-20 bg-opacity-10">
@@ -29,7 +35,10 @@ export const VideoTable = ({ videos = {} }) => {
                     <p className="truncate w-64">{video?.description}</p>
                   </td>
                   <td className="table-td flex gap-x-2">
-                    <span className="delete">
+                    <span
+                      className="delete"
+                      onClick={() => handleDeleteVideo(video?.id)}
+                    >
                       <svg
                         fill="none"
                         viewBox="0 0 24 24"
@@ -44,7 +53,10 @@ export const VideoTable = ({ videos = {} }) => {
                         />
                       </svg>
                     </span>
-                    <Link className="edit" to="/admin/video/edit">
+                    <Link
+                      className="edit"
+                      to={`/admin/video/edit/${video?.id}`}
+                    >
                       <svg
                         fill="none"
                         viewBox="0 0 24 24"
