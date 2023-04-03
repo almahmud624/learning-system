@@ -36,7 +36,7 @@ export const Quiz = () => {
   if (isLoading) content = <span>Quiz Loading...</span>;
   if (!isLoading && isError) content = <span>There was an error</span>;
   if (!isLoading && !isError && videoQuizzes.length === 0)
-    content = <span>Video not found</span>;
+    content = <span>Quiz not found</span>;
   if (!isLoading && !isError && videoQuizzes.length > 0)
     content = videoQuizzes?.map((quiz) => (
       <QuizList key={quiz.id} quiz={quiz} />

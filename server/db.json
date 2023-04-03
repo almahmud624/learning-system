@@ -82,6 +82,15 @@
       "views": "91.2K",
       "duration": "31:30",
       "createdAt": "2023-02-24T17:59:00.000Z"
+    },
+    {
+      "title": "json server",
+      "description": "What is the JSON server? Image result for json server JSON Server is a Node Module that you can use to create demo rest json webservice in less than a minute. All you need is a JSON file for sample data.",
+      "url": "https://youtu.be/OAOCa2qYq2Y",
+      "views": "15.53k",
+      "duration": "10:12",
+      "createdAt": "2023-04-03T11:59:37.091Z",
+      "id": 3
     }
   ],
   "assignments": [

@@ -17,6 +17,7 @@ import PublicRoute from "./PublicRoute/PublicRoute";
 import PublicAdminRoute from "./PublicRoute/PublicAdminRoute";
 import PrivateAdminRoute from "./PrivateRoute/PrivateAdminRoute";
 import { useSelector } from "react-redux";
+import { EditableVideo } from "./components/EditableVideo/EditableVideo";
 
 function App() {
   const checkAuth = useAuthCheck();
@@ -113,6 +114,22 @@ function App() {
           element={
             <PrivateAdminRoute>
               <Videos />
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/video/add"
+          element={
+            <PrivateAdminRoute>
+              <EditableVideo />
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/video/edit"
+          element={
+            <PrivateAdminRoute>
+              <EditableVideo />
             </PrivateAdminRoute>
           }
         />

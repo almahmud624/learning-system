@@ -13,14 +13,14 @@ export const Navigation = () => {
     <>
       <nav className="shadow-md">
         <div className="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
-          <Link to="/">
+          <Link to={`${user?.role === "student" ? "/" : "/admin"}`}>
             <img className="h-10" src={logo} alt="logo" />
           </Link>
           <div className="flex items-center gap-3">
             <Link to="/leaderboard">Leaderboard</Link>
             <h2 className="font-bold">{user?.name}</h2>
             <button
-              className="flex gap-2 border border-cyan items-center px-4 py-1 rounded-full text-sm transition-all hover:bg-cyan "
+              className="flex gap-2 border border-red-500 bg-red-600 items-center px-4 py-1 rounded-full text-sm transition-all hover:bg-red-700 "
               onClick={signOut}
             >
               <svg
