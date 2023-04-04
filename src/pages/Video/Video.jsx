@@ -42,7 +42,7 @@ export const Video = () => {
       assignment_id: assignment?.id,
       title: assignment?.title,
       totalMark: 100,
-      mark: 50,
+      mark: 0,
       repo_link: assignmentLink,
       status: "pending",
       createdAt: Date.now(),

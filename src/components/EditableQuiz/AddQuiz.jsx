@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 import { useAddQuizMutation } from "../../features/quiz/quizApi";
 
-export const EditableQuiz = () => {
+export const AddQuiz = () => {
   const { data: videos } = useGetVideosQuery();
   const [question, setQuestion] = useState("");
   const [videoId, setVideoId] = useState();

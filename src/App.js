@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navigation } from "./components/Navigation/Navigation";
 import { Quiz } from "./pages/Quiz/Quiz";
 import { Leaderboard } from "./pages/Leaderboard/Leaderboard";
@@ -18,8 +18,9 @@ import PublicAdminRoute from "./PublicRoute/PublicAdminRoute";
 import PrivateAdminRoute from "./PrivateRoute/PrivateAdminRoute";
 import { useSelector } from "react-redux";
 import { EditableVideo } from "./components/EditableVideo/EditableVideo";
-import { EditableQuiz } from "./components/EditableQuiz/EditableQuiz";
 import { EditQuiz } from "./components/EditableQuiz/EditQuiz";
+import { AddQuiz } from "./components/EditableQuiz/AddQuiz";
+import { EditableAssignment } from "./components/EditableAssignment/EditableAssignment";
 
 function App() {
   const checkAuth = useAuthCheck();
@@ -139,7 +140,7 @@ function App() {
           path="/admin/quiz/add"
           element={
             <PrivateAdminRoute>
-              <EditableQuiz />
+              <AddQuiz />
             </PrivateAdminRoute>
           }
         />
@@ -148,6 +149,22 @@ function App() {
           element={
             <PrivateAdminRoute>
               <EditQuiz />
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/assignment/add"
+          element={
+            <PrivateAdminRoute>
+              <EditableAssignment />
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/assignment/edit/:assignmentId"
+          element={
+            <PrivateAdminRoute>
+              <EditableAssignment />
             </PrivateAdminRoute>
           }
         />

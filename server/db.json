@@ -130,6 +130,13 @@
       "video_id": 2,
       "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
       "totalMark": 100
+    },
+    {
+      "title": "Assigment 3 - make moke json server",
+      "video_title": "json server auth",
+      "totalMark": 100,
+      "video_id": 3,
+      "id": 3
     }
   ],
   "quizzes": [
