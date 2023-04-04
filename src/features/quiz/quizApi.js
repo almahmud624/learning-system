@@ -8,7 +8,15 @@ export const quizApi = apiSlice.injectEndpoints({
     getQuiz: builder.query({
       query: (id) => `/quizzes/${id}`,
     }),
+    addQuiz: builder.mutation({
+      query: (data) => ({
+        url: `/quizzes`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetQuizzesQuery, useGetQuizQuery } = quizApi;
+export const { useGetQuizzesQuery, useGetQuizQuery, useAddQuizMutation } =
+  quizApi;

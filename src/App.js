@@ -18,6 +18,8 @@ import PublicAdminRoute from "./PublicRoute/PublicAdminRoute";
 import PrivateAdminRoute from "./PrivateRoute/PrivateAdminRoute";
 import { useSelector } from "react-redux";
 import { EditableVideo } from "./components/EditableVideo/EditableVideo";
+import { EditableQuiz } from "./components/EditableQuiz/EditableQuiz";
+import { EditQuiz } from "./components/EditableQuiz/EditQuiz";
 
 function App() {
   const checkAuth = useAuthCheck();
@@ -130,6 +132,22 @@ function App() {
           element={
             <PrivateAdminRoute>
               <EditableVideo />
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/quiz/add"
+          element={
+            <PrivateAdminRoute>
+              <EditableQuiz />
+            </PrivateAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/quiz/edit/:quizId"
+          element={
+            <PrivateAdminRoute>
+              <EditQuiz />
             </PrivateAdminRoute>
           }
         />

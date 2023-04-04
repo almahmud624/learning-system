@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDeleteVideoMutation } from "../../features/videos/videosApi";
 
-export const VideoTable = ({ videos = {} }) => {
+export const VideoTable = ({ videos = [] }) => {
   const [deleteVideo, { isSuccess, isError }] = useDeleteVideoMutation();
   const handleDeleteVideo = (id) => {
     deleteVideo(id);

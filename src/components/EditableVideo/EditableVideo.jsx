@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   useAddVideoMutation,
   useEditVideoMutation,
+  useGetVideoQuery,
   useGetVideosQuery,
 } from "../../features/videos/videosApi";
 import { useLocation, useParams } from "react-router-dom";
@@ -11,7 +12,6 @@ export const EditableVideo = () => {
     useAddVideoMutation();
   const [editVideo, { isSuccess: editSuccess, isError: editError }] =
     useEditVideoMutation();
-  const { data: videos } = useGetVideosQuery();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
@@ -19,6 +19,7 @@ export const EditableVideo = () => {
   const [duration, setDuration] = useState("");
   const [err, setErr] = useState({});
   const { videoId } = useParams();
+  const { data: video } = useGetVideoQuery(videoId);
   const { pathname } = useLocation();
 
   // checking form validation
@@ -37,7 +38,7 @@ export const EditableVideo = () => {
     return formErr;
   };
   // find editable video
-  const video = videos?.find((video) => video?.id === Number(videoId));
+  // const video = videos?.find((video) => video?.id === Number(videoId));
 
   // add & edit video
   const handleSubmit = (e) => {
@@ -69,18 +70,18 @@ export const EditableVideo = () => {
 
   return (
     <>
-      <section class="py-6 bg-primary h-screen">
-        <div class="mx-auto max-w-lg px-5 lg:px-0">
+      <section className="py-6 bg-primary h-screen">
+        <div className="mx-auto max-w-lg px-5 lg:px-0">
           <div>
-            <h2 class="my-6 text-center text-3xl font-extrabold text-slate-100">
+            <h2 className="my-6 text-center text-3xl font-extrabold text-slate-100">
               Add new video
             </h2>
           </div>
           <form className="py-5" onSubmit={handleSubmit}>
-            <div class="mb-6">
+            <div className="mb-6">
               <label
                 for="title"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Video title<sup className="text-red-600 font-bold">*</sup>
               </label>
@@ -88,17 +89,17 @@ export const EditableVideo = () => {
                 type="text"
                 id="title"
                 name="title"
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="lorem ipsum dolar emmet"
                 value={title}
                 required
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-            <div class="mb-6">
+            <div className="mb-6">
               <label
                 for="description"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Description<sup className="text-red-600 font-bold">*</sup>
               </label>
@@ -106,17 +107,17 @@ export const EditableVideo = () => {
                 type="text"
                 id="description"
                 name="description"
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="lorem ipsum dolar emmet"
                 value={description}
                 required
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <div class="mb-6">
+            <div className="mb-6">
               <label
                 for="url"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Url<sup className="text-red-600 font-bold">*</sup>
               </label>
@@ -124,7 +125,7 @@ export const EditableVideo = () => {
                 type="text"
                 id="url"
                 name="url"
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="https://example.com"
                 value={url}
                 required
@@ -141,10 +142,10 @@ export const EditableVideo = () => {
                 </div>
               </div>
             )}
-            <div class="mb-6">
+            <div className="mb-6">
               <label
                 for="views"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Views<sup className="text-red-600 font-bold">*</sup>
               </label>
@@ -152,7 +153,7 @@ export const EditableVideo = () => {
                 type="text"
                 id="views"
                 name="views"
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="12.4k"
                 value={views}
                 required
@@ -169,10 +170,10 @@ export const EditableVideo = () => {
                 </div>
               </div>
             )}
-            <div class="mb-6">
+            <div className="mb-6">
               <label
                 for="duration"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Duration<sup className="text-red-600 font-bold">*</sup>
               </label>
@@ -180,7 +181,7 @@ export const EditableVideo = () => {
                 type="text"
                 id="duration"
                 name="duration"
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="12:12"
                 value={duration}
                 required
@@ -201,7 +202,7 @@ export const EditableVideo = () => {
             )}
             <button
               type="submit"
-              class="text-white border border-2 border-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-500 mb-5"
+              className="text-white border border-2 border-green-600 hover:bg-green-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-500 mb-5"
             >
               Submit
             </button>
