@@ -362,6 +362,18 @@
       "status": "pending",
       "createdAt": 1680454968969,
       "id": 3
+    },
+    {
+      "student_id": 11,
+      "student_name": "red wind",
+      "assignment_id": 3,
+      "title": "Assigment 3 - make moke json server",
+      "totalMark": 100,
+      "mark": 100,
+      "repo_link": "https://github.com/almahmud624",
+      "status": "published",
+      "createdAt": 1680604135836,
+      "id": 4
     }
   ],
   "quizMark": [

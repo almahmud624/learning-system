@@ -11,13 +11,18 @@ export const Leaderboard = () => {
   const { data: quizMark } = useGetQuizMarkQuery();
   const { data: users } = useGetUserQuery();
 
+  // filter published assignment mark
+  const publishedAssignmentMark = assignmentMark?.filter(
+    (mark) => mark?.status === "published"
+  );
+
   // find users of student
   const students = users?.filter((student) => student.role === "student");
 
   // calculate multiple assignment & quiz marks
   const finalAssignmentMark = calculateMark(
     students,
-    assignmentMark,
+    publishedAssignmentMark,
     "assignmentMark"
   );
   const finalQuizMark = calculateMark(students, quizMark, "quizMark");

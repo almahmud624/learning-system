@@ -45,7 +45,7 @@ export const Video = () => {
       mark: 0,
       repo_link: assignmentLink,
       status: "pending",
-      createdAt: Date.now(),
+      createdAt: new Date(Date.now()).toJSON(),
     };
     submitAssignment(userAssigenment);
   };
