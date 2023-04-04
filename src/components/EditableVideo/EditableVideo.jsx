@@ -37,8 +37,6 @@ export const EditableVideo = () => {
     setErr(formErr);
     return formErr;
   };
-  // find editable video
-  // const video = videos?.find((video) => video?.id === Number(videoId));
 
   // add & edit video
   const handleSubmit = (e) => {
@@ -56,7 +54,6 @@ export const EditableVideo = () => {
     }
   };
 
-  console.log(editSuccess);
   useEffect(() => {
     if (video?.id) {
       const { title, description, views, duration, url } = video || {};

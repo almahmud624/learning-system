@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useDeleteQuizMutation } from "../../features/quiz/quizApi";
 
 export const QuizTable = ({ quizzes = [] }) => {
+  const [deleteQuiz, { isSuccess }] = useDeleteQuizMutation();
+  console.log(isSuccess);
   return (
     <>
       <div className="px-3 py-20 bg-opacity-10">
@@ -31,7 +34,7 @@ export const QuizTable = ({ quizzes = [] }) => {
                   <td className="table-td flex gap-x-2">
                     <span
                       className="delete"
-                      // onClick={() => handleDeleteVideo(video?.id)}
+                      onClick={() => deleteQuiz(quiz?.id)}
                     >
                       <svg
                         fill="none"

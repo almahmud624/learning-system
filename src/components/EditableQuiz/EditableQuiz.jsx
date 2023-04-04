@@ -11,12 +11,14 @@ export const EditableQuiz = () => {
   const [isValid, setIsValid] = useState(false);
   const [addQuiz, { isSuccess, isError }] = useAddQuizMutation();
 
-  // add & edit video
+  // add & edit quiz
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // field validation
-    const checkIsCorrectField = options.every((option) => option?.isCorrect);
+    const checkIsCorrectField = options.every(
+      (option) => option?.isCorrect === true || option?.isCorrect === false
+    );
     if (!checkIsCorrectField || isNaN(videoId)) {
       return setIsValid(true);
     }
@@ -58,7 +60,7 @@ export const EditableQuiz = () => {
       options?.map((option) => {
         if (option?.id === index) {
           setIsValid(false);
-          return { ...option, isCorrect: value };
+          return { ...option, isCorrect: JSON.parse(value) };
         } else {
           return option;
         }
