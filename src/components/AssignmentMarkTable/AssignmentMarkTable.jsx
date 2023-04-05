@@ -67,7 +67,7 @@ export const AssignmentMarkTable = ({ assignmentMarks = [] }) => {
                   <td className="table-td">{mark?.student_name}</td>
                   <td className="table-td">{mark?.repo_link}</td>
                   {mark?.status === "published" && (
-                    <td class="table-td">{mark?.mark}</td>
+                    <td className="table-td">{mark?.mark}</td>
                   )}
                   {mark?.status === "pending" && (
                     <td className="table-td input-mark">

@@ -264,7 +264,7 @@ export const AddQuiz = () => {
               <div className="text-center mb-6">
                 <button
                   type="button"
-                  className="text-white border border-2 border-[#10B981] hover:bg-[#10B981]/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
+                  className="text-white border border-2 border-[#10B981] hover:bg-[#10B981]/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3.5 py-2 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
                   disabled={options?.length < 2 || newOption === 4}
                   onClick={() => setNewOption(newOption + 1)}
                 >
@@ -274,7 +274,7 @@ export const AddQuiz = () => {
               <div className="text-center mb-6">
                 <button
                   type="button"
-                  className="text-white border border-2 border-red-600 hover:bg-red-600/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
+                  className="text-white border border-2 border-red-600 hover:bg-red-600/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3.5 py-2 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
                   disabled={options?.length < 2 || newOption === 0}
                   onClick={removeOptionHandler}
                 >
@@ -284,7 +284,7 @@ export const AddQuiz = () => {
             </div>
             <button
               type="submit"
-              className="text-white border border-2 border-green-600 hover:bg-green-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-500"
+              className="text-white border border-2 border-green-600 hover:bg-green-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-500 !bg-green-700 hover:border-green-900 hover:text-slate-900"
             >
               Submit
             </button>
