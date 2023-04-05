@@ -11,6 +11,22 @@ export const assignmentMarkApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data: newAssignmentMark } = await queryFulfilled;
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getAssignmentMark",
+              undefined,
+              (draft) => {
+                draft.push(newAssignmentMark);
+              }
+            )
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
     updateAssignmentMark: builder.mutation({
       query: ({ id, data }) => ({
@@ -18,6 +34,26 @@ export const assignmentMarkApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data: updatedAssignmentMark } = await queryFulfilled;
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getAssignmentMark",
+              undefined,
+              (draft) => {
+                const editableAssignmentMark = draft.find(
+                  (mark) => mark?.id == arg?.id
+                );
+                editableAssignmentMark.mark = updatedAssignmentMark.mark;
+                editableAssignmentMark.status = updatedAssignmentMark.status;
+              }
+            )
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
   }),
 });

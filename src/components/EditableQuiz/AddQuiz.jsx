@@ -7,7 +7,6 @@ export const AddQuiz = () => {
   const [question, setQuestion] = useState("");
   const [videoId, setVideoId] = useState();
   const [options, setOptions] = useState([]);
-  const [newOption, setNewOption] = useState(0);
   const [isValid, setIsValid] = useState(false);
   const [addQuiz, { isSuccess, isError }] = useAddQuizMutation();
 
@@ -73,10 +72,9 @@ export const AddQuiz = () => {
   // remove option
   const removeOptionHandler = () => {
     const availableOptions = options?.filter(
-      (option) => option?.id !== newOption + 2
+      (option) => option?.id !== options?.length
     );
     setOptions(availableOptions);
-    setNewOption(newOption - 1);
   };
   // console.log(isSuccess);
   return (
@@ -132,124 +130,42 @@ export const AddQuiz = () => {
                 ))}
               </select>
             </div>
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
-              <div>
-                <label
-                  for="option_1"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Option - 1
-                </label>
-                <input
-                  type="text"
-                  id="option_1"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Quiz option"
-                  onChange={(e) => getOptionsValue(e.target.value, 1)}
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  for="isCorrect_1"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Select ans<sup className="text-red-600 font-bold">*</sup>
-                </label>
-                <select
-                  id="isCorrect_1"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  disabled={!options?.find((option) => option.id === 1)?.option}
-                  onChange={(e) => includeIsCorrect(e.target.value, 1)}
-                  required
-                >
-                  <option selected disabled>
-                    Choose a answer
-                  </option>
-                  <option value="true">true</option>
-                  <option value="false">false</option>
-                </select>
-              </div>
-            </div>
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
-              <div>
-                <label
-                  for="option_2"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Option - 2
-                </label>
-                <input
-                  type="text"
-                  id="option_2"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Quiz option"
-                  onChange={(e) => getOptionsValue(e.target.value, 2)}
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  for="isCorrect_2"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Select ans<sup className="text-red-600 font-bold">*</sup>
-                </label>
-                <select
-                  id="isCorrect_2"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required
-                  //   value={isCorrect}
-                  disabled={
-                    !options?.find((option) => option?.id === 2)?.option
-                  }
-                  onChange={(e) => includeIsCorrect(e.target.value, 2)}
-                >
-                  <option selected disabled>
-                    Choose a answer
-                  </option>
-                  <option value="true">true</option>
-                  <option value="false">false</option>
-                </select>
-              </div>
-            </div>
-
-            {Array(Number(newOption))
+            {Array(Number(options?.length > 4 ? options?.length : 4))
               ?.fill()
               ?.map((v, i) => (
                 <div key={i} class="grid gap-6 mb-6 md:grid-cols-2">
                   <div>
                     <label
-                      for={`option_${i + 3}`}
+                      for={`option_${i + 1}`}
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Option - {`${i + 3}`}
+                      Option - {`${i + 1}`}
                     </label>
                     <input
                       type="text"
-                      id={`option_${i + 3}`}
+                      id={`option_${i + 1}`}
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Quiz option"
-                      onChange={(e) => getOptionsValue(e.target.value, i + 3)}
+                      onChange={(e) => getOptionsValue(e.target.value, i + 1)}
                       required
                     />
                   </div>
                   <div>
                     <label
-                      for={`isCorrect_${i + 3}`}
+                      for={`isCorrect_${i + 1}`}
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Select ans<sup className="text-red-600 font-bold">*</sup>
                     </label>
                     <select
-                      id={`isCorrect_${i + 3}`}
+                      id={`isCorrect_${i + 1}`}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required
                       //   value={isCorrect}
                       disabled={
-                        !options?.find((option) => option?.id === i + 3)?.option
+                        !options?.find((option) => option?.id === i + 1)?.option
                       }
-                      onChange={(e) => includeIsCorrect(e.target.value, i + 3)}
+                      onChange={(e) => includeIsCorrect(e.target.value, i + 1)}
                     >
                       <option selected disabled>
                         Choose a answer
@@ -260,22 +176,25 @@ export const AddQuiz = () => {
                   </div>
                 </div>
               ))}
+
             <div class="flex gap-2 mb-6 md:grid-cols-2 justify-center">
               <div className="text-center mb-6">
                 <button
                   type="button"
                   className="text-white border border-2 border-[#10B981] hover:bg-[#10B981]/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3.5 py-2 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
-                  disabled={options?.length < 2 || newOption === 4}
-                  onClick={() => setNewOption(newOption + 1)}
+                  disabled={options?.length === 6}
+                  onClick={() => getOptionsValue("", options?.length + 1)}
                 >
-                  {newOption === 4 ? "Maximum options reached" : "Add option"}
+                  {options?.length === 6
+                    ? "Maximum options reached"
+                    : "Add option"}
                 </button>
               </div>
               <div className="text-center mb-6">
                 <button
                   type="button"
                   className="text-white border border-2 border-red-600 hover:bg-red-600/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3.5 py-2 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
-                  disabled={options?.length < 2 || newOption === 0}
+                  disabled={options?.length === 4}
                   onClick={removeOptionHandler}
                 >
                   Less option
@@ -289,11 +208,13 @@ export const AddQuiz = () => {
               Submit
             </button>
           </form>
-          {isValid && (
+          {(isError || isValid) && (
             <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
               <div className="text-sm">
                 <span className="text-red-600 capitalize">
-                  Please!! Fill the required field
+                  {isValid
+                    ? "Please!! Fill the required field"
+                    : "There was an error!!"}
                 </span>
               </div>
             </div>

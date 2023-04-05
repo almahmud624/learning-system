@@ -27,7 +27,7 @@ export const QuizOptions = ({
           id={`option${optionNo}_q${questionNo}`}
           name={quizId}
           value={option.option}
-          checked={checkAns.find((ans) => ans[quizId] === option?.id)}
+          checked={checkAns.some((ans) => ans[quizId] === option?.id)}
           onChange={() => gettingAns(quizId, option?.id)}
         />
         {option.option}

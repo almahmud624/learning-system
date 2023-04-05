@@ -49,7 +49,7 @@ export const Quiz = () => {
   };
 
   useEffect(() => {
-    console.log(isSuccess);
+    // console.log(isSuccess);
     if (submissonErr) console.log("There wan an error in quiz submisson");
   }, [isSuccess, submissonErr]);
 
@@ -78,10 +78,10 @@ export const Quiz = () => {
             ))}
             <button
               onClick={handleSubmitAns}
-              className="px-4 py-2 rounded-full bg-cyan block ml-auto mt-8 hover:opacity-90 active:opacity-100 active:scale-95 disabled:bg-cyan-600 disabled:text-gray-600"
+              className="px-4 py-2 rounded-full bg-cyan block ml-auto mt-8 hover:opacity-90 active:opacity-100 active:scale-95 disabled:bg-slate-700 disabled:text-gray-500 disabled:cursor-not-allowed"
               disabled={checkQuizSubmisson || submissionLoading}
             >
-              Submit
+              {checkQuizSubmisson ? "Submitted" : "Submit"}
             </button>
           </div>
         ) : (

@@ -62,6 +62,7 @@ export const Video = () => {
               video={video}
               setShowModal={setShowModal}
               assignmentSubmisson={assignmentSubmisson}
+              assignment={assignment}
             />
             <VideoList />
           </div>

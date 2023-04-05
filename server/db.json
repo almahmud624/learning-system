@@ -153,6 +153,13 @@
       "totalMark": 100,
       "video_id": 5,
       "id": 5
+    },
+    {
+      "title": "assignment 5",
+      "video_title": "Dolore aspernatur de",
+      "totalMark": 100,
+      "video_id": 6,
+      "id": 6
     }
   ],
   "quizzes": [
@@ -343,78 +350,131 @@
           "id": 2,
           "option": "2",
           "isCorrect": false
+        },
+        {
+          "id": 3,
+          "option": "0",
+          "isCorrect": true
+        },
+        {
+          "id": 4,
+          "option": "-2",
+          "isCorrect": false
         }
       ],
       "id": 7
     },
     {
-      "question": "what the name of red",
+      "question": "Inside which HTML element do we put the JavaScript?",
       "video_id": 2,
       "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
       "options": [
         {
           "id": 1,
-          "option": "Reprehenderit corpor",
-          "isCorrect": true
+          "option": "<js>",
+          "isCorrect": false
         },
         {
           "id": 2,
-          "option": "Laudantium laborum ",
+          "option": "<javascript>",
+          "isCorrect": false
+        },
+        {
+          "id": 3,
+          "option": "<script>",
+          "isCorrect": true
+        },
+        {
+          "id": 4,
+          "option": "<scripting>",
           "isCorrect": false
         }
       ],
       "id": 8
     },
     {
-      "question": "change something",
+      "question": "Which of the following keywords is used to define a variable in Javascript?",
       "video_id": 2,
       "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
       "options": [
         {
           "id": 1,
-          "option": "Laboris occaecat dig",
+          "option": "var",
           "isCorrect": true
         },
         {
           "id": 2,
-          "option": "Eius quo nihil non q",
+          "option": "let",
           "isCorrect": true
         },
         {
           "id": 3,
-          "option": "sdf",
-          "isCorrect": false
+          "option": "const",
+          "isCorrect": true
         },
         {
           "id": 4,
-          "option": "new option",
+          "option": "none of the above",
           "isCorrect": false
         }
       ],
       "id": 10
     },
     {
-      "question": "Distinctio Esse ad",
-      "video_id": 1,
-      "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question",
+      "question": "how can we get the empty array?",
+      "video_id": 2,
+      "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
       "options": [
         {
           "id": 1,
-          "option": "Asperiores obcaecati",
-          "isCorrect": false
+          "option": "array.length === 0",
+          "isCorrect": true
         },
         {
           "id": 2,
-          "option": "Nisi in autem duis e",
+          "option": "array.length > 0",
           "isCorrect": false
         },
         {
           "id": 3,
-          "option": "new one",
+          "option": "array.length >= 0",
+          "isCorrect": false
+        },
+        {
+          "id": 4,
+          "option": "!array.length",
           "isCorrect": true
         }
       ],
-      "id": 11
+      "id": 12
+    },
+    {
+      "question": "Which function is used to serialize an object into a JSON string in Javascript?",
+      "video_id": 2,
+      "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
+      "options": [
+        {
+          "id": 1,
+          "option": "stringify()",
+          "isCorrect": true
+        },
+        {
+          "id": 2,
+          "option": "parse()",
+          "isCorrect": false
+        },
+        {
+          "id": 3,
+          "option": "convert()",
+          "isCorrect": false
+        },
+        {
+          "id": 4,
+          "option": "none of the above",
+          "isCorrect": false
+        }
+      ],
+      "id": 13
     }
   ],
   "assignmentMark": [
@@ -460,9 +520,9 @@
       "assignment_id": 1,
       "title": "Assignment 1 - Implement Debounce Function",
       "totalMark": 100,
-      "mark": 50,
+      "mark": 100,
       "repo_link": "furnitureshala@gmail.com",
-      "status": "pending",
+      "status": "published",
       "createdAt": 1680454968969,
       "id": 3
     },
@@ -477,6 +537,30 @@
       "status": "published",
       "createdAt": 1680604135836,
       "id": 4
+    },
+    {
+      "student_id": 9,
+      "student_name": "Aphrodite Grant",
+      "assignment_id": 5,
+      "title": "assignment 5",
+      "totalMark": 100,
+      "mark": 0,
+      "repo_link": "http://example.com",
+      "status": "pending",
+      "createdAt": "2023-04-05T15:43:39.023Z",
+      "id": 5
+    },
+    {
+      "student_id": 9,
+      "student_name": "Aphrodite Grant",
+      "assignment_id": 3,
+      "title": "Assigment 3 - make moke json server",
+      "totalMark": 100,
+      "mark": 100,
+      "repo_link": "http://demo.com",
+      "status": "published",
+      "createdAt": "2023-04-05T15:44:10.216Z",
+      "id": 6
     }
   ],
   "quizMark": [
@@ -575,6 +659,18 @@
       "totalMark": 15,
       "mark": 10,
       "id": 5
+    },
+    {
+      "student_id": 9,
+      "student_name": "Aphrodite Grant",
+      "video_id": 2,
+      "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
+      "totalQuiz": 5,
+      "totalCorrect": 3,
+      "totalWrong": 2,
+      "totalMark": 25,
+      "mark": 15,
+      "id": 6
     }
   ]
 }

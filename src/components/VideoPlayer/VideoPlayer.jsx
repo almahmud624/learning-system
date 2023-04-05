@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 
-export const VideoPlayer = ({ video, setShowModal, assignmentSubmisson }) => {
+export const VideoPlayer = ({
+  video,
+  setShowModal,
+  assignmentSubmisson,
+  assignment,
+}) => {
   const { id, title, description, createdAt, url } = video || {};
   return (
     <>
@@ -25,17 +30,18 @@ export const VideoPlayer = ({ video, setShowModal, assignmentSubmisson }) => {
 
           <div className="flex gap-4">
             <button
-              className={`px-3 font-bold py-1 border rounded-full text-sm ${
-                assignmentSubmisson
-                  ? "bg-green-600 border-green-600 text-white hover:text-white hover:bg-green-800 "
-                  : "border-cyan text-cyan hover:bg-cyan hover:text-primary"
+              className={`px-3 font-bold py-1 border rounded-full text-sm disabled:border-slate-700 disabled:text-slate-700 disabled:cursor-not-allowed border-cyan text-cyan hover:bg-cyan hover:text-primary disabled:hover:bg-transparent disabled:hover:text-slate-700 ${
+                assignmentSubmisson &&
+                "bg-green-600 border-green-600 text-white disabled:hover:bg-green-600"
               }`}
               onClick={() => setShowModal(true)}
-              disabled={assignmentSubmisson}
+              disabled={assignmentSubmisson || !assignment}
             >
               {assignmentSubmisson
                 ? "এসাইনমেন্ট জমা দেওয়া হয়েছে"
-                : "এসাইনমেন্ট"}
+                : assignment
+                ? "এসাইনমেন্ট"
+                : "এসাইনমেন্ট নেই"}
             </button>
 
             <Link

@@ -1,10 +1,9 @@
 import { QuizOptions } from "./QuizOptions";
 
 export const QuizList = ({ quiz = {}, questionNo, checkAns, setCheckAns }) => {
-  console.log(checkAns);
   return (
     <>
-      <div className="space-y-8 ">
+      <div className="space-y-8 my-5">
         <div className="quiz">
           <h4 className="question">
             Quiz {questionNo} - {quiz?.question}

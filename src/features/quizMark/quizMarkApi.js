@@ -11,6 +11,18 @@ export const quizMarkApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data: newQuizMark } = await queryFulfilled;
+          dispatch(
+            apiSlice.util.updateQueryData("getQuizMark", undefined, (draft) => {
+              draft.push(newQuizMark);
+            })
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
   }),
 });
