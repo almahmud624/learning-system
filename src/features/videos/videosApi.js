@@ -14,6 +14,18 @@ export const videosApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data: newVideo } = await queryFulfilled;
+          dispatch(
+            apiSlice.util.updateQueryData("getVideos", undefined, (draft) => {
+              draft.push(newVideo);
+            })
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
     editVideo: builder.mutation({
       query: ({ videoId, videoData }) => ({
@@ -21,12 +33,51 @@ export const videosApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: videoData,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data: updatedVideo } = await queryFulfilled;
+          dispatch(
+            apiSlice.util.updateQueryData("getVideos", undefined, (draft) => {
+              const editableVideo = draft.find(
+                (video) => video?.id == arg?.videoId
+              );
+              editableVideo.title = updatedVideo.title;
+              editableVideo.description = updatedVideo.description;
+              editableVideo.url = updatedVideo.url;
+              editableVideo.views = updatedVideo.views;
+              editableVideo.duration = updatedVideo.duration;
+            })
+          );
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getVideo",
+              arg.videoId.toString(),
+              (draft) => {
+                draft.title = updatedVideo.title;
+                draft.description = updatedVideo.description;
+                draft.url = updatedVideo.url;
+                draft.views = updatedVideo.views;
+                draft.duration = updatedVideo.duration;
+              }
+            )
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
     deleteVideo: builder.mutation({
       query: (id) => ({
         url: `/videos/${id}`,
         method: "DELETE",
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        dispatch(
+          apiSlice.util.updateQueryData("getVideos", undefined, (draft) => {
+            return draft?.filter((video) => video?.id != arg);
+          })
+        );
+      },
     }),
   }),
 });

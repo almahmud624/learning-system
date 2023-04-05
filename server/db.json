@@ -114,6 +114,15 @@
       "duration": "45:23",
       "createdAt": "2023-04-03T14:45:36.121Z",
       "id": 5
+    },
+    {
+      "title": "Dolore aspernatur de",
+      "description": "Ab est ut sed quos ",
+      "url": "http://",
+      "views": "12k",
+      "duration": "11",
+      "createdAt": "2023-04-05T07:25:42.329Z",
+      "id": 6
     }
   ],
   "assignments": [
@@ -137,6 +146,13 @@
       "totalMark": 100,
       "video_id": 3,
       "id": 3
+    },
+    {
+      "title": "assignment 5",
+      "video_title": "১০০% বিগিনার ফ্রেন্ডলি কোর্স",
+      "totalMark": 100,
+      "video_id": 5,
+      "id": 5
     }
   ],
   "quizzes": [
@@ -312,6 +328,34 @@
         }
       ],
       "id": 6
+    },
+    {
+      "question": "what is the value of 1-1",
+      "video_id": 5,
+      "video_title": "১০০% বিগিনার ফ্রেন্ডলি কোর্স",
+      "options": [
+        {
+          "id": 1,
+          "option": "1",
+          "isCorrect": false
+        },
+        {
+          "id": 2,
+          "option": "2",
+          "isCorrect": false
+        },
+        {
+          "id": 3,
+          "option": "-1",
+          "isCorrect": false
+        },
+        {
+          "id": 4,
+          "option": "0",
+          "isCorrect": true
+        }
+      ],
+      "id": 7
     }
   ],
   "assignmentMark": [

@@ -6,6 +6,7 @@ import {
   useAddAssignmentMutation,
   useEditAssignmentMutation,
   useGetAssignmentQuery,
+  useGetAssignmentsQuery,
 } from "../../features/assignment/assignmentApi";
 
 export const EditableAssignment = () => {
@@ -15,8 +16,10 @@ export const EditableAssignment = () => {
   const [err, setErr] = useState({});
   const { assignmentId } = useParams();
   const { pathname } = useLocation();
+  const addAssignmentPath = pathname === "/admin/assignment/add";
   const { data: videos } = useGetVideosQuery();
   const { data: assignment } = useGetAssignmentQuery(assignmentId);
+  const { data: assignments } = useGetAssignmentsQuery();
   const [addAssignment, { isSuccess: addSuccess, isError: addErr }] =
     useAddAssignmentMutation();
   const [editAssignment, { isSuccess: editSuccess, isError: editErr }] =
@@ -26,14 +29,31 @@ export const EditableAssignment = () => {
   const isSuccess = addSuccess || editSuccess;
   const isError = addErr || editErr;
 
+  // filter available video for add assigment
+  const existAddAssignmentVideos = videos?.filter(
+    (video) =>
+      !assignments?.some((assignment) => assignment?.video_id === video?.id)
+  );
+
+  // find selected video
+  const selectedVideo = videos?.find((video) => video.id === Number(videoId));
+
+  // available videos for edit assignment
+  const existEditAssignmentVideos =
+    existAddAssignmentVideos?.length > 0
+      ? [...existAddAssignmentVideos, selectedVideo]
+      : [selectedVideo];
+
+  // video list shown by conditionally for add and edit assignment
+  const availableVideos = addAssignmentPath
+    ? existAddAssignmentVideos
+    : existEditAssignmentVideos;
+
   // add & edit assignment
   const handleSubmit = (e) => {
     e.preventDefault();
-    // selected video title
-    const video_title = videos?.find(
-      (video) => video.id === Number(videoId)
-    )?.title;
 
+    // field validation check
     if (marks > 100) {
       return setErr({
         ...err,
@@ -46,11 +66,11 @@ export const EditableAssignment = () => {
 
     const assignmentData = {
       title,
-      video_title,
+      video_title: selectedVideo?.title,
       totalMark: marks,
       video_id: Number(videoId),
     };
-    if (pathname === "/admin/assignment/add") {
+    if (addAssignmentPath) {
       addAssignment(assignmentData);
     } else {
       editAssignment({ id: assignmentId, data: assignmentData });
@@ -65,6 +85,7 @@ export const EditableAssignment = () => {
       setMarks(totalMark);
     }
   }, [assignment]);
+
   return (
     <>
       <section className="py-6 bg-primary h-screen">
@@ -108,11 +129,19 @@ export const EditableAssignment = () => {
                   setVideoId(e.target.value);
                   setErr({});
                 }}
+                disabled={
+                  existEditAssignmentVideos?.length === 1 ||
+                  existAddAssignmentVideos?.length === 0
+                }
                 required
               >
-                <option selected>Choose a video</option>
-                {videos?.map((video) => (
-                  <option key={video?.id} value={video?.id}>
+                <option selected>
+                  {existAddAssignmentVideos?.length === 0
+                    ? "Please add a video first"
+                    : "Choose a video"}
+                </option>
+                {availableVideos?.map((video, i) => (
+                  <option key={i} value={video?.id}>
                     {video?.title}
                   </option>
                 ))}

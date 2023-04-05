@@ -26,6 +26,8 @@ export const AddQuiz = () => {
     const video_title = videos?.find(
       (video) => video.id === Number(videoId)
     )?.title;
+
+    // create new quiz
     const quizData = {
       question,
       video_id: Number(videoId),
@@ -67,7 +69,16 @@ export const AddQuiz = () => {
       })
     );
   };
-  console.log(isSuccess);
+
+  // remove option
+  const removeOptionHandler = () => {
+    const availableOptions = options?.filter(
+      (option) => option?.id !== newOption + 2
+    );
+    setOptions(availableOptions);
+    setNewOption(newOption - 1);
+  };
+  // console.log(isSuccess);
   return (
     <>
       <section className="py-6 bg-primary">
@@ -149,7 +160,6 @@ export const AddQuiz = () => {
                   id="isCorrect_1"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   disabled={!options?.find((option) => option.id === 1)?.option}
-                  //   value={isCorrect}
                   onChange={(e) => includeIsCorrect(e.target.value, 1)}
                   required
                 >
@@ -250,31 +260,27 @@ export const AddQuiz = () => {
                   </div>
                 </div>
               ))}
-            <div className="text-center mb-6">
-              <button
-                type="button"
-                className="text-white border border-2 border-[#10B981] hover:bg-[#10B981]/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
-                disabled={options?.length < 2 || newOption === 4}
-                onClick={() => setNewOption(newOption + 1)}
-              >
-                {newOption === 4
-                  ? "Maximum options reached"
-                  : "Add more options"}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
+            <div class="flex gap-2 mb-6 md:grid-cols-2 justify-center">
+              <div className="text-center mb-6">
+                <button
+                  type="button"
+                  className="text-white border border-2 border-[#10B981] hover:bg-[#10B981]/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
+                  disabled={options?.length < 2 || newOption === 4}
+                  onClick={() => setNewOption(newOption + 1)}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 6v12m6-6H6"
-                  />
-                </svg>
-              </button>
+                  {newOption === 4 ? "Maximum options reached" : "Add option"}
+                </button>
+              </div>
+              <div className="text-center mb-6">
+                <button
+                  type="button"
+                  className="text-white border border-2 border-red-600 hover:bg-red-600/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
+                  disabled={options?.length < 2 || newOption === 0}
+                  onClick={removeOptionHandler}
+                >
+                  Less option
+                </button>
+              </div>
             </div>
             <button
               type="submit"
