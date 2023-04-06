@@ -1,15 +1,20 @@
+import { DataNotFound } from "../../../components/DataNotFound/DataNotFound";
+import { Loader } from "../../../components/Loader/Loader";
 import { VideoTable } from "../../../components/VideoTable/VideoTable";
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
 
 export const Videos = () => {
   const { data: videos, isLoading, isError } = useGetVideosQuery();
   let content;
-  if (isLoading) content = <span>Videos Loading...</span>;
-  if (!isLoading && isError) content = <span>There was an error</span>;
-  if (!isLoading && !isError && videos.length === 0)
-    content = <span>Videos not found</span>;
-  if (!isLoading && !isError && videos.length > 0)
+  if (isLoading) {
+    content = <Loader />;
+  } else if (!isLoading && isError) {
+    content = <span>There was an error</span>;
+  } else if (!isLoading && !isError && videos.length === 0) {
+    content = <DataNotFound message={"Videos not found"} />;
+  } else if (!isLoading && !isError && videos.length > 0) {
     content = <VideoTable videos={videos} />;
+  }
   return (
     <>
       <section className="py-6 bg-primary">

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 import { useAddQuizMutation } from "../../features/quiz/quizApi";
+import { useNavigate } from "react-router-dom";
+import { ErrorDialog } from "../ErrorDialog/ErrorDialog";
 
 export const AddQuiz = () => {
   const { data: videos } = useGetVideosQuery();
@@ -8,7 +10,8 @@ export const AddQuiz = () => {
   const [videoId, setVideoId] = useState();
   const [options, setOptions] = useState([]);
   const [isValid, setIsValid] = useState(false);
-  const [addQuiz, { isSuccess, isError }] = useAddQuizMutation();
+  const [addQuiz, { isSuccess, isError, isLoading }] = useAddQuizMutation();
+  const navigate = useNavigate();
 
   // add & edit quiz
   const handleSubmit = (e) => {
@@ -76,7 +79,10 @@ export const AddQuiz = () => {
     );
     setOptions(availableOptions);
   };
-  // console.log(isSuccess);
+
+  if (isSuccess) {
+    navigate("/admin/quizzes");
+  }
   return (
     <>
       <section className="py-6 bg-primary">
@@ -204,20 +210,19 @@ export const AddQuiz = () => {
             <button
               type="submit"
               className="text-white border border-2 border-green-600 hover:bg-green-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-500 !bg-green-700 hover:border-green-900 hover:text-slate-900"
+              disabled={isLoading}
             >
               Submit
             </button>
           </form>
           {(isError || isValid) && (
-            <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
-              <div className="text-sm">
-                <span className="text-red-600 capitalize">
-                  {isValid
-                    ? "Please!! Fill the required field"
-                    : "There was an error!!"}
-                </span>
-              </div>
-            </div>
+            <ErrorDialog
+              message={
+                isValid
+                  ? "Please!! Fill the required field"
+                  : "There was an error!!"
+              }
+            />
           )}
         </div>
       </section>

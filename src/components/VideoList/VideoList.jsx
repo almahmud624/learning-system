@@ -1,18 +1,22 @@
 import { useGetVideosQuery } from "../../features/videos/videosApi";
+import { VideoListLoader } from "../VideoListLoader/VideoListLoader";
 import { VideoListItem } from "./VideoListItem";
 
 export const VideoList = () => {
   const { data: videos, isLoading, isError } = useGetVideosQuery();
 
   let content;
-  if (isLoading) content = <span>Videos Loading...</span>;
-  if (!isLoading && isError) content = <span>There was an error</span>;
-  if (!isLoading && !isError && videos.length === 0)
+  if (isLoading) {
+    content = <VideoListLoader />;
+  } else if (!isLoading && isError) {
+    content = <span>There was an error</span>;
+  } else if (!isLoading && !isError && videos.length === 0) {
     content = <span>Video not found</span>;
-  if (!isLoading && !isError && videos.length > 0)
+  } else if (!isLoading && !isError && videos.length > 0) {
     content = videos?.map((video) => (
       <VideoListItem key={video.id} video={video} />
     ));
+  }
 
   return (
     <>

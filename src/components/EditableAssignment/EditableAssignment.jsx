@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 import {
   useAddAssignmentMutation,
@@ -8,6 +8,7 @@ import {
   useGetAssignmentQuery,
   useGetAssignmentsQuery,
 } from "../../features/assignment/assignmentApi";
+import { ErrorDialog } from "../ErrorDialog/ErrorDialog";
 
 export const EditableAssignment = () => {
   const [title, setTitle] = useState("");
@@ -20,14 +21,20 @@ export const EditableAssignment = () => {
   const { data: videos } = useGetVideosQuery();
   const { data: assignment } = useGetAssignmentQuery(assignmentId);
   const { data: assignments } = useGetAssignmentsQuery();
-  const [addAssignment, { isSuccess: addSuccess, isError: addErr }] =
-    useAddAssignmentMutation();
-  const [editAssignment, { isSuccess: editSuccess, isError: editErr }] =
-    useEditAssignmentMutation();
+  const [
+    addAssignment,
+    { isSuccess: addSuccess, isError: addErr, isLoading: addLoading },
+  ] = useAddAssignmentMutation();
+  const [
+    editAssignment,
+    { isSuccess: editSuccess, isError: editErr, isLoading: editLoading },
+  ] = useEditAssignmentMutation();
+  const navigate = useNavigate();
 
   // mutation response shown by conditionally
   const isSuccess = addSuccess || editSuccess;
   const isError = addErr || editErr;
+  const isLoading = addLoading || editLoading;
 
   // filter available video for add assigment
   const existAddAssignmentVideos = videos?.filter(
@@ -78,13 +85,16 @@ export const EditableAssignment = () => {
   };
 
   useEffect(() => {
+    if (isSuccess) {
+      navigate("/admin/assignment");
+    }
     if (assignment?.id) {
       const { title, video_id, totalMark } = assignment || {};
       setTitle(title);
       setVideoId(video_id);
       setMarks(totalMark);
     }
-  }, [assignment]);
+  }, [assignment, isSuccess, navigate]);
 
   return (
     <>
@@ -147,15 +157,7 @@ export const EditableAssignment = () => {
                 ))}
               </select>
             </div>
-            {err?.videoId && (
-              <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
-                <div className="text-sm">
-                  <span className="text-red-600 capitalize">
-                    {err?.videoId}
-                  </span>
-                </div>
-              </div>
-            )}
+            {err?.videoId && <ErrorDialog message={err?.videoId} />}
             <div className="">
               <label
                 htmlFor="marks"
@@ -178,29 +180,16 @@ export const EditableAssignment = () => {
                 }}
               />
             </div>
-            {err?.marks && (
-              <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
-                <div className="text-sm">
-                  <span className="text-red-600 capitalize">{err?.marks}</span>
-                </div>
-              </div>
-            )}
+            {err?.marks && <ErrorDialog message={err?.marks} />}
             <button
               type="submit"
               className="text-white border border-2 border-green-600 hover:bg-green-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-500 mt-6"
+              disabled={isLoading}
             >
               Submit
             </button>
           </form>
-          {isError && (
-            <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
-              <div className="text-sm">
-                <span className="text-red-600 capitalize">
-                  There was an error
-                </span>
-              </div>
-            </div>
-          )}
+          {isError && <ErrorDialog message={"There was an error"} />}
         </div>
       </section>
     </>

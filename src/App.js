@@ -16,18 +16,17 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
 import PublicAdminRoute from "./PublicRoute/PublicAdminRoute";
 import PrivateAdminRoute from "./PrivateRoute/PrivateAdminRoute";
-import { useSelector } from "react-redux";
 import { EditableVideo } from "./components/EditableVideo/EditableVideo";
 import { EditQuiz } from "./components/EditableQuiz/EditQuiz";
 import { AddQuiz } from "./components/EditableQuiz/AddQuiz";
 import { EditableAssignment } from "./components/EditableAssignment/EditableAssignment";
+import { Loader } from "./components/Loader/Loader";
 
 function App() {
   const checkAuth = useAuthCheck();
-  const { user } = useSelector((state) => state.auth);
 
   return !checkAuth ? (
-    "Checking visitor authorization..."
+    <Loader />
   ) : (
     <BrowserRouter>
       <Navigation />

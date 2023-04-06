@@ -1,4 +1,6 @@
 import { AssignmentMarkTable } from "../../../components/AssignmentMarkTable/AssignmentMarkTable";
+import { DataNotFound } from "../../../components/DataNotFound/DataNotFound";
+import { Loader } from "../../../components/Loader/Loader";
 import { useGetAssignmentMarkQuery } from "../../../features/assignmentMark/assignmentMarkApi";
 
 export const AssignmentMark = () => {
@@ -9,12 +11,15 @@ export const AssignmentMark = () => {
   } = useGetAssignmentMarkQuery();
 
   let content;
-  if (isLoading) content = <span>Assignment Marks Sheet Loading...</span>;
-  if (!isLoading && isError) content = <span>There was an error</span>;
-  if (!isLoading && !isError && assignmentMarks?.length === 0)
-    content = <span>Assignment Marks not found</span>;
-  if (!isLoading && !isError && assignmentMarks?.length > 0)
+  if (isLoading) {
+    content = <Loader />;
+  } else if (!isLoading && isError) {
+    content = <span>There was an error</span>;
+  } else if (!isLoading && !isError && assignmentMarks?.length === 0) {
+    content = <DataNotFound message={"Assignment Marks not found"} />;
+  } else if (!isLoading && !isError && assignmentMarks?.length > 0) {
     content = <AssignmentMarkTable assignmentMarks={assignmentMarks} />;
+  }
   return (
     <>
       <section className="py-6 bg-primary">

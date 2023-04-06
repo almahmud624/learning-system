@@ -3,15 +3,19 @@ import {
   useAddVideoMutation,
   useEditVideoMutation,
   useGetVideoQuery,
-  useGetVideosQuery,
 } from "../../features/videos/videosApi";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ErrorDialog } from "../ErrorDialog/ErrorDialog";
 
 export const EditableVideo = () => {
-  const [addVideo, { isSuccess: addSuccess, isError: addError }] =
-    useAddVideoMutation();
-  const [editVideo, { isSuccess: editSuccess, isError: editError }] =
-    useEditVideoMutation();
+  const [
+    addVideo,
+    { isSuccess: addSuccess, isError: addError, isLoading: addLoading },
+  ] = useAddVideoMutation();
+  const [
+    editVideo,
+    { isSuccess: editSuccess, isError: editError, isLoading: editLoading },
+  ] = useEditVideoMutation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
@@ -21,6 +25,12 @@ export const EditableVideo = () => {
   const { videoId } = useParams();
   const { data: video } = useGetVideoQuery(videoId);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  // mutation response shown by conditionally
+  const isSuccess = addSuccess || editSuccess;
+  const isError = addError || editError;
+  const isLoading = addLoading || editLoading;
 
   // checking form validation
   const formValidation = (url, duration, views) => {
@@ -55,6 +65,9 @@ export const EditableVideo = () => {
   };
 
   useEffect(() => {
+    if (isSuccess) {
+      navigate("/admin/videos");
+    }
     if (video?.id) {
       const { title, description, views, duration, url } = video || {};
       setTitle(title);
@@ -63,7 +76,7 @@ export const EditableVideo = () => {
       setViews(views);
       setUrl(url);
     }
-  }, [video]);
+  }, [video, isSuccess, navigate]);
 
   return (
     <>
@@ -132,13 +145,7 @@ export const EditableVideo = () => {
                 }}
               />
             </div>
-            {err?.url && (
-              <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
-                <div className="text-sm">
-                  <span className="text-red-600 capitalize">{err?.url}</span>
-                </div>
-              </div>
-            )}
+            {err?.url && <ErrorDialog message={err?.url} />}
             <div className="mb-6">
               <label
                 htmlFor="views"
@@ -160,13 +167,7 @@ export const EditableVideo = () => {
                 }}
               />
             </div>
-            {err?.views && (
-              <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
-                <div className="text-sm">
-                  <span className="text-red-600 capitalize">{err?.views}</span>
-                </div>
-              </div>
-            )}
+            {err?.views && <ErrorDialog message={err?.views} />}
             <div className="mb-6">
               <label
                 htmlFor="duration"
@@ -188,22 +189,16 @@ export const EditableVideo = () => {
                 }}
               />
             </div>
-            {err?.duration && (
-              <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
-                <div className="text-sm">
-                  <span className="text-red-600 capitalize">
-                    {err?.duration}
-                  </span>
-                </div>
-              </div>
-            )}
+            {err?.duration && <ErrorDialog message={err?.duration} />}
             <button
               type="submit"
               className="text-white border border-2 border-green-600 hover:bg-green-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-500 mb-5"
+              disabled={isLoading}
             >
               Submit
             </button>
           </form>
+          {isError && <ErrorDialog message={"There was an error"} />}
         </div>
       </section>
     </>

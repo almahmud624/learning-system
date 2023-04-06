@@ -8,6 +8,8 @@ import {
   useGetQuizMarkQuery,
   useUpdateQuizMarkMutation,
 } from "../../features/quizMark/quizMarkApi";
+import { Loader } from "../../components/Loader/Loader";
+import { DataNotFound } from "../../components/DataNotFound/DataNotFound";
 
 export const Quiz = () => {
   const { videoId } = useParams();
@@ -34,15 +36,7 @@ export const Quiz = () => {
   );
 
   // content shown depend on response condition
-  let content;
-  if (isLoading) content = <span>Quiz Loading...</span>;
-  if (!isLoading && isError) content = <span>There was an error</span>;
-  if (!isLoading && !isError && videoQuizzes.length === 0)
-    content = <span>Quiz not found</span>;
-  if (!isLoading && !isError && videoQuizzes.length > 0)
-    content = videoQuizzes?.map((quiz) => (
-      <QuizList key={quiz.id} quiz={quiz} />
-    ));
+  const contentNotFound = !isLoading && !isError && videoQuizzes?.length === 0;
 
   // submit quiz answer
   const handleSubmitAns = () => {
@@ -70,7 +64,11 @@ export const Quiz = () => {
   return (
     <>
       <section className="py-6 bg-primary">
-        {!isLoading && !isError && videoQuizzes.length > 0 ? (
+        {isLoading ? (
+          <Loader />
+        ) : contentNotFound ? (
+          <DataNotFound message={"Quiz Not Found"} />
+        ) : (
           <div className="mx-auto max-w-7xl px-5 lg:px-0">
             <div className="mb-8">
               <h1 className="text-2xl font-bold">
@@ -109,8 +107,6 @@ export const Quiz = () => {
               {checkQuizSubmisson ? "Submitted" : "Submit"}
             </button>
           </div>
-        ) : (
-          content
         )}
       </section>
     </>

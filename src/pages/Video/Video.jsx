@@ -11,6 +11,7 @@ import {
   useSubmitAssignmentMutation,
 } from "../../features/assignmentMark/assignmentMarkApi";
 import { useEffect, useState } from "react";
+import { VideoPlayerLoader } from "../../components/VideoPlayerLoader/VideoPlayerLoader";
 export const Video = () => {
   const { videoId } = useParams();
   const { data: video, isLoading, isError } = useGetVideoQuery(videoId);
@@ -58,12 +59,16 @@ export const Video = () => {
       <section className="py-6 bg-primary">
         <div className="mx-auto max-w-7xl px-5 lg:px-0">
           <div className="grid grid-cols-3 gap-2 lg:gap-8">
-            <VideoPlayer
-              video={video}
-              setShowModal={setShowModal}
-              assignmentSubmisson={assignmentSubmisson}
-              assignment={assignment}
-            />
+            {!isLoading ? (
+              <VideoPlayer
+                video={video}
+                setShowModal={setShowModal}
+                assignmentSubmisson={assignmentSubmisson}
+                assignment={assignment}
+              />
+            ) : (
+              <VideoPlayerLoader />
+            )}
             <VideoList />
           </div>
         </div>

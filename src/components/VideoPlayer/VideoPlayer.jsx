@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getLocalestringDate } from "../../utils/getLocalestringDate";
 import { useGetQuizMarkQuery } from "../../features/quizMark/quizMarkApi";
 import { useGetQuizzesQuery } from "../../features/quiz/quizApi";
