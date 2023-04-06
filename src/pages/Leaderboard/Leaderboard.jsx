@@ -1,5 +1,7 @@
+import { DataNotFound } from "../../components/DataNotFound/DataNotFound";
 import { LeaderboardTopPosition } from "../../components/LeaderboardPosition/LeaderboardTopPosition";
 import { LoggedInPosition } from "../../components/LeaderboardPosition/LoggedInPosition";
+import { Loader } from "../../components/Loader/Loader";
 import { useGetAssignmentMarkQuery } from "../../features/assignmentMark/assignmentMarkApi";
 import { useGetQuizMarkQuery } from "../../features/quizMark/quizMarkApi";
 import { useGetUserQuery } from "../../features/user/userApi";
@@ -7,9 +9,13 @@ import { calculateMark } from "../../utils/calculateMark";
 import { setStudentRank } from "../../utils/setStudentRank";
 
 export const Leaderboard = () => {
-  const { data: assignmentMark } = useGetAssignmentMarkQuery();
-  const { data: quizMark } = useGetQuizMarkQuery();
+  const { data: assignmentMark, isLoading: assignmentMarkLoading } =
+    useGetAssignmentMarkQuery();
+  const { data: quizMark, isLoading: quizMarkLoading } = useGetQuizMarkQuery();
   const { data: users } = useGetUserQuery();
+
+  // response shown by conditionally
+  const isLoading = assignmentMarkLoading || quizMarkLoading;
 
   // filter published assignment mark
   const publishedAssignmentMark = assignmentMark?.filter(
@@ -43,12 +49,18 @@ export const Leaderboard = () => {
 
   return (
     <>
-      <section className="py-6 bg-primary">
-        <div className="mx-auto max-w-7xl px-5 lg:px-0">
-          <LoggedInPosition studentsMark={rankedStd} />
-          <LeaderboardTopPosition studentsMark={rankedStd} />
-        </div>
-      </section>
+      {isLoading ? (
+        <Loader />
+      ) : rankedStd?.length === 0 ? (
+        <DataNotFound message={"Data not found"} />
+      ) : (
+        <section className="py-6 bg-primary">
+          <div className="mx-auto max-w-7xl px-5 lg:px-0">
+            <LoggedInPosition studentsMark={rankedStd} />
+            <LeaderboardTopPosition studentsMark={rankedStd} />
+          </div>
+        </section>
+      )}
     </>
   );
 };

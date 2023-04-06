@@ -15,7 +15,7 @@ export const LeaderboardTopPosition = ({ studentsMark = [] }) => {
           </thead>
 
           <tbody>
-            {studentsMark?.map((stdMark, i) => (
+            {studentsMark?.slice(0, 20)?.map((stdMark, i) => (
               <tr key={i} className="border-b border-slate-600/50">
                 <td className="table-td text-center">{stdMark.rank}</td>
                 <td className="table-td text-center">{stdMark.name}</td>
