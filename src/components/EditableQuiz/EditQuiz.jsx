@@ -102,7 +102,7 @@ export const EditQuiz = () => {
           <form className="py-5" onSubmit={handleSubmit}>
             <div className="mb-6">
               <label
-                for="question"
+                htmlFor="question"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Question<sup className="text-red-600 font-bold">*</sup>
@@ -120,7 +120,7 @@ export const EditQuiz = () => {
             </div>
             <div className="mb-6">
               <label
-                for="videoId"
+                htmlFor="videoId"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Select video<sup className="text-red-600 font-bold">*</sup>
@@ -147,7 +147,7 @@ export const EditQuiz = () => {
               <div key={option?.id} className="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                   <label
-                    for={`option_${i + 1}`}
+                    htmlFor={`option_${i + 1}`}
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Option - {i + 1}
@@ -166,7 +166,7 @@ export const EditQuiz = () => {
                 </div>
                 <div>
                   <label
-                    for={`isCorrect_${i + 1}`}
+                    htmlFor={`isCorrect_${i + 1}`}
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Select ans<sup className="text-red-600 font-bold">*</sup>
@@ -193,7 +193,7 @@ export const EditQuiz = () => {
               </div>
             ))}
 
-            <div class="flex gap-2 mb-6 md:grid-cols-2 justify-center">
+            <div className="flex gap-2 mb-6 md:grid-cols-2 justify-center">
               <div className="text-center mb-6">
                 <button
                   type="button"

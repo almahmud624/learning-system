@@ -123,6 +123,15 @@
       "duration": "11",
       "createdAt": "2023-04-05T07:25:42.329Z",
       "id": 6
+    },
+    {
+      "title": "new video",
+      "description": "description",
+      "url": "http://",
+      "views": "12k",
+      "duration": "12",
+      "createdAt": "2023-04-06T05:46:47.989Z",
+      "id": 7
     }
   ],
   "assignments": [
@@ -142,24 +151,17 @@
     },
     {
       "title": "Assigment 3 - make moke json server",
-      "video_title": "json server auth",
-      "totalMark": 100,
-      "video_id": 3,
-      "id": 3
-    },
-    {
-      "title": "assignment 5",
       "video_title": "১০০% বিগিনার ফ্রেন্ডলি কোর্স",
       "totalMark": 100,
       "video_id": 5,
-      "id": 5
+      "id": 3
     },
     {
       "title": "assignment 5",
       "video_title": "Dolore aspernatur de",
       "totalMark": 100,
       "video_id": 6,
-      "id": 6
+      "id": 5
     }
   ],
   "quizzes": [
@@ -671,6 +673,42 @@
       "totalMark": 25,
       "mark": 15,
       "id": 6
+    },
+    {
+      "student_id": 11,
+      "student_name": "red wind",
+      "video_id": 5,
+      "video_title": "১০০% বিগিনার ফ্রেন্ডলি কোর্স",
+      "totalQuiz": 1,
+      "totalCorrect": 1,
+      "totalWrong": 0,
+      "totalMark": 5,
+      "mark": 5,
+      "id": 7
+    },
+    {
+      "student_id": 9,
+      "student_name": "Aphrodite Grant",
+      "video_id": 5,
+      "video_title": "১০০% বিগিনার ফ্রেন্ডলি কোর্স",
+      "totalQuiz": 1,
+      "totalCorrect": 1,
+      "totalWrong": 0,
+      "totalMark": 5,
+      "mark": 5,
+      "id": 8
+    },
+    {
+      "student_id": 9,
+      "student_name": "Aphrodite Grant",
+      "video_id": 1,
+      "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question",
+      "totalQuiz": 2,
+      "totalCorrect": 1,
+      "totalWrong": 1,
+      "totalMark": 10,
+      "mark": 5,
+      "id": 9
     }
   ]
 }

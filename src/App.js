@@ -30,7 +30,7 @@ function App() {
     "Checking visitor authorization..."
   ) : (
     <BrowserRouter>
-      {user?.email && <Navigation />}
+      <Navigation />
       <Routes>
         <Route
           path="video/:videoId"

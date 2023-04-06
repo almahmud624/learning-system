@@ -3,7 +3,7 @@ export const FormModal = ({
   setShowModal,
   handleSubmitAssignment,
   setAssignmentLink,
-  assignmentLink,
+  assignment,
 }) => {
   return (
     <>
@@ -32,10 +32,10 @@ export const FormModal = ({
                 <div className="">
                   <div className="mt-3 sm:mt-0 sm:text-left">
                     <h2
-                      className="text-base font-semibold leading-6 text-gray-900 text-white"
+                      className="text-base font-semibold leading-6 text-gray-900 text-white capitalize"
                       id="modal-title"
                     >
-                      Submit your assignment
+                      {assignment?.title}
                     </h2>
                     <form className="bg-slate-800 rounded ">
                       <div className="mt-4">

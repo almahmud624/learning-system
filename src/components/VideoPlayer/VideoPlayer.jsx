@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getLocalestringDate } from "../../utils/getLocalestringDate";
+import { useGetQuizMarkQuery } from "../../features/quizMark/quizMarkApi";
+import { useGetQuizzesQuery } from "../../features/quiz/quizApi";
+import { useSelector } from "react-redux";
 
 export const VideoPlayer = ({
   video,
@@ -6,7 +10,18 @@ export const VideoPlayer = ({
   assignmentSubmisson,
   assignment,
 }) => {
+  const navigate = useNavigate();
   const { id, title, description, createdAt, url } = video || {};
+  const { data: quizMarks } = useGetQuizMarkQuery();
+  const { data: quizzes } = useGetQuizzesQuery();
+  const { user } = useSelector((state) => state.auth);
+  // check users quiz submission
+  const checkQuizSubmisson = quizMarks?.some(
+    (mark) => mark?.student_id === user?.id && mark?.video_id === Number(id)
+  );
+
+  // find quizzes for that video
+  const videoQuizzes = quizzes?.filter((quiz) => quiz?.video_id === Number(id));
   return (
     <>
       <div className="col-span-full w-full space-y-8 lg:col-span-2">
@@ -15,9 +30,9 @@ export const VideoPlayer = ({
           className="aspect-video"
           src={url}
           title={title}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
 
         <div>
@@ -25,31 +40,39 @@ export const VideoPlayer = ({
             {title}
           </h1>
           <h2 className=" pb-4 text-sm leading-[1.7142857] text-slate-400">
-            Uploaded on {createdAt}
+            Uploaded on {getLocalestringDate(createdAt)}
           </h2>
 
           <div className="flex gap-4">
-            <button
-              className={`px-3 font-bold py-1 border rounded-full text-sm disabled:border-slate-700 disabled:text-slate-700 disabled:cursor-not-allowed border-cyan text-cyan hover:bg-cyan hover:text-primary disabled:hover:bg-transparent disabled:hover:text-slate-700 ${
-                assignmentSubmisson &&
-                "bg-green-600 border-green-600 text-white disabled:hover:bg-green-600"
-              }`}
-              onClick={() => setShowModal(true)}
-              disabled={assignmentSubmisson || !assignment}
-            >
-              {assignmentSubmisson
-                ? "এসাইনমেন্ট জমা দেওয়া হয়েছে"
-                : assignment
-                ? "এসাইনমেন্ট"
-                : "এসাইনমেন্ট নেই"}
-            </button>
+            {assignment && (
+              <button
+                className={`px-3 font-bold py-1 border rounded-full text-sm disabled:border-slate-700 disabled:text-slate-700 disabled:cursor-not-allowed border-cyan text-cyan hover:bg-cyan hover:text-primary  disabled:hover:text-slate-700 ${
+                  assignmentSubmisson &&
+                  "bg-green-600 border-green-600 text-white disabled:hover:bg-green-600"
+                }`}
+                onClick={() => setShowModal(true)}
+                disabled={assignmentSubmisson}
+              >
+                {assignmentSubmisson
+                  ? "এসাইনমেন্ট জমা দেওয়া হয়েছে"
+                  : "এসাইনমেন্ট"}
+              </button>
+            )}
 
-            <Link
-              to={`/quiz/${id}`}
-              className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary"
-            >
-              কুইজে অংশগ্রহণ করুন
-            </Link>
+            {videoQuizzes?.length !== 0 && (
+              <button
+                className={`px-3 font-bold py-1 border rounded-full text-sm disabled:border-slate-700 disabled:text-slate-700 disabled:cursor-not-allowed border-cyan text-cyan hover:bg-cyan hover:text-primary disabled:hover:text-slate-700 ${
+                  checkQuizSubmisson &&
+                  "bg-green-600 border-green-600 text-white disabled:hover:bg-green-600"
+                }`}
+                onClick={() => navigate(`/quiz/${id}`)}
+                disabled={checkQuizSubmisson}
+              >
+                {checkQuizSubmisson
+                  ? "কুইজ জমা দেওয়া হয়েছে"
+                  : "কুইজে অংশগ্রহণ করুন"}
+              </button>
+            )}
           </div>
           <p className="mt-4 text-sm text-slate-400 leading-6">{description}</p>
         </div>

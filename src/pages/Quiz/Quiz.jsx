@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { QuizList } from "../../components/QuizList/QuizList";
 import { useGetQuizzesQuery } from "../../features/quiz/quizApi";
 import { useEffect, useState } from "react";
@@ -19,6 +19,8 @@ export const Quiz = () => {
     { isSuccess, isLoading: submissionLoading, isError: submissonErr },
   ] = useUpdateQuizMarkMutation();
   const { data: quizMarks } = useGetQuizMarkQuery();
+  const navigate = useNavigate();
+  const [trackUnselected, setTrackUnselected] = useState();
 
   // check users quiz submission
   const checkQuizSubmisson = quizMarks?.some(
@@ -44,14 +46,26 @@ export const Quiz = () => {
 
   // submit quiz answer
   const handleSubmitAns = () => {
-    const userQuizMark = getQuizMark(videoQuizzes, checkAns, user);
+    const { unSelectedQuestion, userQuizMark } = getQuizMark(
+      videoQuizzes,
+      checkAns,
+      user
+    );
+
+    // track unselected question
+    if (unSelectedQuestion > 0) {
+      return setTrackUnselected(unSelectedQuestion);
+    }
+    // updateQuizMark(userQuizMark);
     updateQuizMark(userQuizMark);
   };
 
   useEffect(() => {
-    // console.log(isSuccess);
+    if (isSuccess) {
+      navigate("/leaderboard");
+    }
     if (submissonErr) console.log("There wan an error in quiz submisson");
-  }, [isSuccess, submissonErr]);
+  }, [isSuccess, submissonErr, navigate]);
 
   return (
     <>
@@ -76,6 +90,17 @@ export const Quiz = () => {
                 setCheckAns={setCheckAns}
               />
             ))}
+            {trackUnselected > 0 && (
+              <div className="flex items-center justify-start px-3 py-3 bg-gray-900 my-3 rounded-lg">
+                <div className="text-sm">
+                  <span className="text-red-600 capitalize font-bold">
+                    {trackUnselected <= 10 && 0}
+                    {trackUnselected}{" "}
+                    {trackUnselected <= 1 ? "question" : "questions"} left.
+                  </span>
+                </div>
+              </div>
+            )}
             <button
               onClick={handleSubmitAns}
               className="px-4 py-2 rounded-full bg-cyan block ml-auto mt-8 hover:opacity-90 active:opacity-100 active:scale-95 disabled:bg-slate-700 disabled:text-gray-500 disabled:cursor-not-allowed"

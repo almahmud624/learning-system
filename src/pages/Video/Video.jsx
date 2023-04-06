@@ -73,7 +73,7 @@ export const Video = () => {
         setShowModal={setShowModal}
         handleSubmitAssignment={handleSubmitAssignment}
         setAssignmentLink={setAssignmentLink}
-        assignmentLink={setAssignmentLink}
+        assignment={assignment}
       />
     </>
   );

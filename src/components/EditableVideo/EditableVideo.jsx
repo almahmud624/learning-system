@@ -77,7 +77,7 @@ export const EditableVideo = () => {
           <form className="py-5" onSubmit={handleSubmit}>
             <div className="mb-6">
               <label
-                for="title"
+                htmlFor="title"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Video title<sup className="text-red-600 font-bold">*</sup>
@@ -95,7 +95,7 @@ export const EditableVideo = () => {
             </div>
             <div className="mb-6">
               <label
-                for="description"
+                htmlFor="description"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Description<sup className="text-red-600 font-bold">*</sup>
@@ -113,7 +113,7 @@ export const EditableVideo = () => {
             </div>
             <div className="mb-6">
               <label
-                for="url"
+                htmlFor="url"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Url<sup className="text-red-600 font-bold">*</sup>
@@ -141,7 +141,7 @@ export const EditableVideo = () => {
             )}
             <div className="mb-6">
               <label
-                for="views"
+                htmlFor="views"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Views<sup className="text-red-600 font-bold">*</sup>
@@ -169,7 +169,7 @@ export const EditableVideo = () => {
             )}
             <div className="mb-6">
               <label
-                for="duration"
+                htmlFor="duration"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Duration<sup className="text-red-600 font-bold">*</sup>

@@ -85,14 +85,14 @@ export const Authenticator = () => {
             <div className="rounded-md shadow-sm -space-y-px">
               {!isSignIn && !isAdmin && (
                 <div>
-                  <label for="name" className="sr-only">
+                  <label htmlFor="name" className="sr-only">
                     Name
                   </label>
                   <input
                     id="name"
                     name="name"
                     type="name"
-                    autocomplete="name"
+                    autoComplete="name"
                     required
                     className="login-input rounded-t-md"
                     placeholder="Student Name"
@@ -101,14 +101,14 @@ export const Authenticator = () => {
                 </div>
               )}
               <div>
-                <label for="email-address" className="sr-only">
+                <label htmlFor="email-address" className="sr-only">
                   Email address
                 </label>
                 <input
                   id="email-address"
                   name="email"
                   type="email"
-                  autocomplete="email"
+                  autoComplete="email"
                   required
                   className="login-input "
                   placeholder="Email address"
@@ -116,14 +116,14 @@ export const Authenticator = () => {
                 />
               </div>
               <div>
-                <label for="password" className="sr-only">
+                <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
                   id="password"
                   name="password"
                   type="password"
-                  autocomplete="current-password"
+                  autoComplete="current-password"
                   required
                   className="login-input"
                   placeholder="Password"
@@ -132,14 +132,14 @@ export const Authenticator = () => {
               </div>
               {!isSignIn && !isAdmin && (
                 <div>
-                  <label for="confirm-password" className="sr-only">
+                  <label htmlFor="confirm-password" className="sr-only">
                     Confirm Password
                   </label>
                   <input
                     id="confirm-password"
                     name="confirmPassword"
                     type="password"
-                    autocomplete="confirm-password"
+                    autoComplete="confirm-password"
                     required
                     className="login-input rounded-b-md"
                     placeholder="Confirm Password"

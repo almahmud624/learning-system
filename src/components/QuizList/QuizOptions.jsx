@@ -21,7 +21,7 @@ export const QuizOptions = ({
 
   return (
     <>
-      <label for={`option${optionNo}_q${questionNo}`}>
+      <label htmlFor={`option${optionNo}_q${questionNo}`}>
         <input
           type="checkbox"
           id={`option${optionNo}_q${questionNo}`}

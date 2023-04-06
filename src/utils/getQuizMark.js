@@ -1,6 +1,7 @@
 export const getQuizMark = (videoQuizzes, checkAns, user) => {
   let totalCorrect = 0;
   let totalWrong = 0;
+  let unSelectedQuestion = 0;
   videoQuizzes?.forEach((q) => {
     const selectQuizId = checkAns?.filter((a) => a[q.id]);
     const quizId = selectQuizId[0] && Number(Object.keys(selectQuizId[0]));
@@ -22,19 +23,8 @@ export const getQuizMark = (videoQuizzes, checkAns, user) => {
         totalWrong++;
       }
     } else {
-      totalWrong++;
+      unSelectedQuestion++;
     }
-
-    // const selectedQuizId = checkAns?.filter((a) => a[q.id]);
-    // const correctAnswer = selectedQuizId?.every(
-    //   (i) => q?.options?.find((a) => a.id === i[q.id])?.isCorrect
-    // );
-
-    // if (correctAnswer) {
-    //   totalCorrect++;
-    // } else {
-    //   totalWrong++;
-    // }
   });
   const userQuizMark = {
     student_id: user?.id,
@@ -47,5 +37,5 @@ export const getQuizMark = (videoQuizzes, checkAns, user) => {
     totalMark: videoQuizzes?.length * 5,
     mark: totalCorrect * 5,
   };
-  return userQuizMark;
+  return { unSelectedQuestion, userQuizMark };
 };

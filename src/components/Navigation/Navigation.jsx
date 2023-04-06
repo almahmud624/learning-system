@@ -1,16 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/image/learningportal.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignOut } from "../../features/auth/authSlice";
 export const Navigation = () => {
   const { user } = useSelector((state) => state.auth);
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const signOut = () => {
     dispatch(userSignOut());
     localStorage.clear();
   };
+  const userCheck =
+    pathname === "/admin" || pathname === "/" || pathname === "/registration";
   return (
-    <>
+    !userCheck && (
       <nav className="shadow-md">
         <div className="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
           <Link to={`${user?.role === "student" ? "/" : "/admin"}`}>
@@ -33,13 +36,13 @@ export const Navigation = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
                 />
               </svg>
@@ -48,6 +51,6 @@ export const Navigation = () => {
           </div>
         </div>
       </nav>
-    </>
+    )
   );
 };

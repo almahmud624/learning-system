@@ -60,7 +60,7 @@ export const EditableAssignment = () => {
         marks: "Marks should be less than or equal to 100",
       });
     }
-    if (!videoId) {
+    if (!videoId || isNaN(videoId)) {
       return setErr({ ...err, videoId: "Please,select a video." });
     }
 
@@ -92,13 +92,13 @@ export const EditableAssignment = () => {
         <div className="mx-auto max-w-lg px-5 lg:px-0">
           <div>
             <h2 className="my-6 text-center text-3xl font-extrabold text-slate-100">
-              Add new assignment
+              {addAssignmentPath ? "Add new assignment" : "Edit assignment"}
             </h2>
           </div>
           <form className="py-5" onSubmit={handleSubmit}>
             <div className="mb-6">
               <label
-                for="title"
+                htmlFor="title"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Assignment title<sup className="text-red-600 font-bold">*</sup>
@@ -116,7 +116,7 @@ export const EditableAssignment = () => {
             </div>
             <div className="mb-6">
               <label
-                for="videoId"
+                htmlFor="videoId"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Select video<sup className="text-red-600 font-bold">*</sup>
@@ -135,7 +135,7 @@ export const EditableAssignment = () => {
                 }
                 required
               >
-                <option selected>
+                <option selected disabled={!addAssignmentPath}>
                   {existAddAssignmentVideos?.length === 0
                     ? "Please add a video first"
                     : "Choose a video"}
@@ -158,7 +158,7 @@ export const EditableAssignment = () => {
             )}
             <div className="">
               <label
-                for="marks"
+                htmlFor="marks"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Marks<sup className="text-red-600 font-bold">*</sup>
@@ -168,7 +168,7 @@ export const EditableAssignment = () => {
                 id="marks"
                 name="marks"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                placeholder="12:12"
+                placeholder="100"
                 value={marks}
                 required
                 maxLength={3}
