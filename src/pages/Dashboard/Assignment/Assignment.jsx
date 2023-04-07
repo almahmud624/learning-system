@@ -1,5 +1,6 @@
 import { AssignmentTable } from "../../../components/AssignmentTable/AssignmentTable";
 import { DataNotFound } from "../../../components/DataNotFound/DataNotFound";
+import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Loader } from "../../../components/Loader/Loader";
 import { useGetAssignmentsQuery } from "../../../features/assignment/assignmentApi";
 
@@ -9,7 +10,7 @@ export const Assignment = () => {
   if (isLoading) {
     content = <Loader />;
   } else if (!isLoading && isError) {
-    content = <span>There was an error</span>;
+    content = <ErrorMessage />;
   } else if (!isLoading && !isError && assignments?.length === 0) {
     content = <DataNotFound message={"Assignments not found"} />;
   } else if (!isLoading && !isError && assignments?.length > 0) {

@@ -3,7 +3,7 @@ import { useDeleteAssignmentMutation } from "../../features/assignment/assignmen
 
 export const AssignmentTable = ({ assignments = [] }) => {
   const [deleteAssignment, { isSuccess }] = useDeleteAssignmentMutation();
-  console.log(isSuccess);
+  // console.log(isSuccess);
   return (
     <>
       <div className="px-3 py-20 bg-opacity-10">

@@ -6,7 +6,7 @@ export const VideoTable = ({ videos = [] }) => {
   const handleDeleteVideo = (id) => {
     deleteVideo(id);
   };
-  console.log(isSuccess);
+  // console.log(isSuccess);
   return (
     <>
       <div className="px-3 py-20 bg-opacity-10">

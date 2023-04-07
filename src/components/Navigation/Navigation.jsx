@@ -8,7 +8,7 @@ export const Navigation = () => {
   const dispatch = useDispatch();
   const signOut = () => {
     dispatch(userSignOut());
-    localStorage.clear();
+    localStorage.removeItem("auth");
   };
   const userCheck =
     pathname === "/admin" || pathname === "/" || pathname === "/registration";

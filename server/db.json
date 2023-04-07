@@ -76,6 +76,13 @@
       "name": "red wind",
       "role": "student",
       "id": 11
+    },
+    {
+      "email": "test2@gmail.com",
+      "password": "$2a$10$weoAx8N.1wrs7GWUA.AWjOwbYOCINs3dgaj8J5vkBQGRiE6TBe2NO",
+      "name": "test 3",
+      "role": "student",
+      "id": 12
     }
   ],
   "videos": [
@@ -114,24 +121,6 @@
       "duration": "45:23",
       "createdAt": "2023-04-03T14:45:36.121Z",
       "id": 5
-    },
-    {
-      "title": "Dolore aspernatur de",
-      "description": "Ab est ut sed quos ",
-      "url": "http://",
-      "views": "12k",
-      "duration": "11",
-      "createdAt": "2023-04-05T07:25:42.329Z",
-      "id": 6
-    },
-    {
-      "title": "new video",
-      "description": "description",
-      "url": "http://",
-      "views": "12k",
-      "duration": "12",
-      "createdAt": "2023-04-06T05:46:47.989Z",
-      "id": 7
     }
   ],
   "assignments": [
@@ -155,13 +144,6 @@
       "totalMark": 100,
       "video_id": 5,
       "id": 3
-    },
-    {
-      "title": "assignment 5",
-      "video_title": "Dolore aspernatur de",
-      "totalMark": 100,
-      "video_id": 6,
-      "id": 5
     }
   ],
   "quizzes": [
@@ -563,6 +545,18 @@
       "status": "published",
       "createdAt": "2023-04-05T15:44:10.216Z",
       "id": 6
+    },
+    {
+      "student_id": 11,
+      "student_name": "red wind",
+      "assignment_id": 1,
+      "title": "Assignment 1 - Implement Debounce Function",
+      "totalMark": 100,
+      "mark": 100,
+      "repo_link": "http://test",
+      "status": "published",
+      "createdAt": "2023-04-06T16:10:57.891Z",
+      "id": 7
     }
   ],
   "quizMark": [
@@ -699,8 +693,8 @@
       "id": 8
     },
     {
-      "student_id": 9,
-      "student_name": "Aphrodite Grant",
+      "student_id": 12,
+      "student_name": "test 3",
       "video_id": 1,
       "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question",
       "totalQuiz": 2,
@@ -708,7 +702,55 @@
       "totalWrong": 1,
       "totalMark": 10,
       "mark": 5,
-      "id": 9
+      "id": 11
+    },
+    {
+      "student_id": 12,
+      "student_name": "test 3",
+      "video_id": 3,
+      "video_title": "json server",
+      "totalQuiz": 3,
+      "totalCorrect": 2,
+      "totalWrong": 1,
+      "totalMark": 15,
+      "mark": 10,
+      "id": 12
+    },
+    {
+      "student_id": 12,
+      "student_name": "test 3",
+      "video_id": 5,
+      "video_title": "১০০% বিগিনার ফ্রেন্ডলি কোর্স",
+      "totalQuiz": 1,
+      "totalCorrect": 0,
+      "totalWrong": 1,
+      "totalMark": 5,
+      "mark": 0,
+      "id": 13
+    },
+    {
+      "student_id": 9,
+      "student_name": "Aphrodite Grant",
+      "video_id": 1,
+      "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question",
+      "totalQuiz": 2,
+      "totalCorrect": 2,
+      "totalWrong": 0,
+      "totalMark": 10,
+      "mark": 10,
+      "id": 14
+    },
+    {
+      "student_id": 11,
+      "student_name": "red wind",
+      "video_id": 1,
+      "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question",
+      "totalQuiz": 2,
+      "totalCorrect": 1,
+      "totalWrong": 1,
+      "totalMark": 10,
+      "mark": 5,
+      "id": 15
     }
   ]
 }

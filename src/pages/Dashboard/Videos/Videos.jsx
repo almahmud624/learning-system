@@ -1,4 +1,5 @@
 import { DataNotFound } from "../../../components/DataNotFound/DataNotFound";
+import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Loader } from "../../../components/Loader/Loader";
 import { VideoTable } from "../../../components/VideoTable/VideoTable";
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
@@ -9,7 +10,7 @@ export const Videos = () => {
   if (isLoading) {
     content = <Loader />;
   } else if (!isLoading && isError) {
-    content = <span>There was an error</span>;
+    content = <ErrorMessage />;
   } else if (!isLoading && !isError && videos.length === 0) {
     content = <DataNotFound message={"Videos not found"} />;
   } else if (!isLoading && !isError && videos.length > 0) {

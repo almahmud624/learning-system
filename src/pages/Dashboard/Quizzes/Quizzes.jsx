@@ -1,4 +1,5 @@
 import { DataNotFound } from "../../../components/DataNotFound/DataNotFound";
+import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Loader } from "../../../components/Loader/Loader";
 import { QuizTable } from "../../../components/QuizTable/QuizTable";
 import { useGetQuizzesQuery } from "../../../features/quiz/quizApi";
@@ -9,7 +10,7 @@ export const Quizzes = () => {
   if (isLoading) {
     content = <Loader />;
   } else if (!isLoading && isError) {
-    content = <span>There was an error</span>;
+    content = <ErrorMessage />;
   } else if (!isLoading && !isError && quizzes?.length === 0) {
     content = <DataNotFound message={"Quizzes not found"} />;
   } else if (!isLoading && !isError && quizzes?.length > 0) {

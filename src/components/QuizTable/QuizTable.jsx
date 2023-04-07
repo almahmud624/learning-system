@@ -3,7 +3,7 @@ import { useDeleteQuizMutation } from "../../features/quiz/quizApi";
 
 export const QuizTable = ({ quizzes = [] }) => {
   const [deleteQuiz, { isSuccess }] = useDeleteQuizMutation();
-  console.log(isSuccess);
+  // console.log(isSuccess);
   return (
     <>
       <div className="px-3 py-20 bg-opacity-10">

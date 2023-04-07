@@ -18,6 +18,7 @@ export const QuizList = ({ quiz = {}, questionNo, checkAns, setCheckAns }) => {
                 quizId={quiz?.id}
                 checkAns={checkAns}
                 setCheckAns={setCheckAns}
+                videoId={quiz?.video_id}
               />
             ))}
           </form>

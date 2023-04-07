@@ -190,6 +190,7 @@ export const AddQuiz = () => {
                   className="text-white border border-2 border-[#10B981] hover:bg-[#10B981]/90 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3.5 py-2 text-center inline-flex items-center mr-2 mb-2 disabled:bg-slate-800 disabled:text-slate-400 disabled:border-slate-800 transition-all duration-500"
                   disabled={options?.length === 6}
                   onClick={() => getOptionsValue("", options?.length + 1)}
+                  title="Top 04 options must be filled"
                 >
                   {options?.length === 6
                     ? "Maximum options reached"

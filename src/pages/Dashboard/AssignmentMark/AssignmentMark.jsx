@@ -1,5 +1,6 @@
 import { AssignmentMarkTable } from "../../../components/AssignmentMarkTable/AssignmentMarkTable";
 import { DataNotFound } from "../../../components/DataNotFound/DataNotFound";
+import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Loader } from "../../../components/Loader/Loader";
 import { useGetAssignmentMarkQuery } from "../../../features/assignmentMark/assignmentMarkApi";
 
@@ -14,7 +15,7 @@ export const AssignmentMark = () => {
   if (isLoading) {
     content = <Loader />;
   } else if (!isLoading && isError) {
-    content = <span>There was an error</span>;
+    content = <ErrorMessage />;
   } else if (!isLoading && !isError && assignmentMarks?.length === 0) {
     content = <DataNotFound message={"Assignment Marks not found"} />;
   } else if (!isLoading && !isError && assignmentMarks?.length > 0) {

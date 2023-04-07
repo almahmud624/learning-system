@@ -25,7 +25,7 @@ export const Quiz = () => {
   const [trackUnselected, setTrackUnselected] = useState();
 
   // check users quiz submission
-  const checkQuizSubmisson = quizMarks?.some(
+  const checkQuizSubmisson = quizMarks?.find(
     (mark) =>
       mark?.student_id === user?.id && mark?.video_id === Number(videoId)
   );
@@ -50,16 +50,22 @@ export const Quiz = () => {
     if (unSelectedQuestion > 0) {
       return setTrackUnselected(unSelectedQuestion);
     }
+
     // updateQuizMark(userQuizMark);
     updateQuizMark(userQuizMark);
   };
 
   useEffect(() => {
     if (isSuccess) {
+      // set checked ans in local storage for testing
+      const storedAnsId = JSON.parse(localStorage.getItem("ca")) || [];
+      storedAnsId.push({ studentId: user?.id, [videoId]: checkAns });
+      localStorage.setItem("ca", JSON.stringify(storedAnsId));
+
       navigate("/leaderboard");
     }
     if (submissonErr) console.log("There wan an error in quiz submisson");
-  }, [isSuccess, submissonErr, navigate]);
+  }, [isSuccess, submissonErr, navigate, checkAns, user?.id, videoId]);
 
   return (
     <>
@@ -78,6 +84,70 @@ export const Quiz = () => {
               <p className="text-sm text-slate-200">
                 Each question contains 5 Mark
               </p>
+
+              {checkQuizSubmisson && (
+                <>
+                  {" "}
+                  <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white mt-5">
+                    For understanding answer:
+                  </h2>
+                  <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400 ">
+                    <li class="flex items-center">
+                      <div class="w-4 h-4 bg-green-600 rounded-full mr-2">
+                        <div class="w-3 h-3 bg-slate-200 rounded-full"></div>
+                      </div>
+                      Correct answer
+                    </li>
+                    <li class="flex items-center">
+                      <div class="w-4 h-4 bg-green-600 rounded-full mr-2">
+                        <div class="w-3 h-3 bg-red-600 rounded-full"></div>
+                      </div>
+                      Selected correct answer
+                    </li>
+                    <li class="flex items-center">
+                      <div class="w-4 h-4 bg-slate-600 rounded-full mr-2">
+                        <div class="w-3 h-3 bg-red-600 rounded-full"></div>
+                      </div>
+                      Selected wrong answer
+                    </li>
+                  </ul>
+                </>
+              )}
+
+              {checkQuizSubmisson && (
+                <div className="border border-slate-700 inline-block p-3 rounded mt-5">
+                  <p className="text-sm text-slate-200 font-semibold my-1 text-md">
+                    Total Question:{" "}
+                    <span className="font-normal">
+                      {checkQuizSubmisson?.totalQuiz}
+                    </span>
+                  </p>
+                  <p className="text-sm text-slate-200 font-semibold my-1 text-md">
+                    Total Mark:{" "}
+                    <span className="font-normal">
+                      {checkQuizSubmisson?.totalMark}
+                    </span>
+                  </p>
+                  <p className="text-sm text-slate-200 font-semibold my-1 text-md">
+                    Correct Ans:{" "}
+                    <span className="font-normal">
+                      {checkQuizSubmisson?.totalCorrect}
+                    </span>
+                  </p>
+                  <p className="text-sm text-slate-200 font-semibold my-1 text-md">
+                    Wrong Ans:{" "}
+                    <span className="font-normal">
+                      {checkQuizSubmisson?.totalWrong}
+                    </span>
+                  </p>
+                  <p className="text-sm text-slate-200 font-semibold my-1 text-md">
+                    Final Mark:{" "}
+                    <span className="font-normal">
+                      {checkQuizSubmisson?.mark}
+                    </span>
+                  </p>
+                </div>
+              )}
             </div>
             {videoQuizzes?.map((quiz, i) => (
               <QuizList

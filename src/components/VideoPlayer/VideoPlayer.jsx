@@ -66,10 +66,10 @@ export const VideoPlayer = ({
                   "bg-green-600 border-green-600 text-white disabled:hover:bg-green-600"
                 }`}
                 onClick={() => navigate(`/quiz/${id}`)}
-                disabled={checkQuizSubmisson}
+                // disabled={checkQuizSubmisson}
               >
                 {checkQuizSubmisson
-                  ? "কুইজ জমা দেওয়া হয়েছে"
+                  ? "কুইজ দিয়েছেন, উত্তর দেখুন"
                   : "কুইজে অংশগ্রহণ করুন"}
               </button>
             )}
