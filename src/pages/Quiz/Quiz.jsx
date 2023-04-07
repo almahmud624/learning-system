@@ -88,25 +88,25 @@ export const Quiz = () => {
               {checkQuizSubmisson && (
                 <>
                   {" "}
-                  <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white mt-5">
+                  <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white mt-5">
                     For understanding answer:
                   </h2>
-                  <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400 ">
-                    <li class="flex items-center">
-                      <div class="w-4 h-4 bg-green-600 rounded-full mr-2">
-                        <div class="w-3 h-3 bg-slate-200 rounded-full"></div>
+                  <ul className="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400 ">
+                    <li className="flex items-center">
+                      <div className="w-4 h-4 bg-green-600 rounded-full mr-2">
+                        <div className="w-3 h-3 bg-slate-200 rounded-full"></div>
                       </div>
                       Correct answer
                     </li>
-                    <li class="flex items-center">
-                      <div class="w-4 h-4 bg-green-600 rounded-full mr-2">
-                        <div class="w-3 h-3 bg-red-600 rounded-full"></div>
+                    <li className="flex items-center">
+                      <div className="w-4 h-4 bg-green-600 rounded-full mr-2">
+                        <div className="w-3 h-3 bg-red-600 rounded-full"></div>
                       </div>
                       Selected correct answer
                     </li>
-                    <li class="flex items-center">
-                      <div class="w-4 h-4 bg-slate-600 rounded-full mr-2">
-                        <div class="w-3 h-3 bg-red-600 rounded-full"></div>
+                    <li className="flex items-center">
+                      <div className="w-4 h-4 bg-slate-600 rounded-full mr-2">
+                        <div className="w-3 h-3 bg-red-600 rounded-full"></div>
                       </div>
                       Selected wrong answer
                     </li>
