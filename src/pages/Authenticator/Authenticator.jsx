@@ -1,30 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/learningportal.svg";
-import {
-  useCreateUserMutation,
-  useLogInMutation,
-} from "../../features/auth/authApi";
+import {} from "../../features/auth/authApi";
+import { useFirebaseAuth } from "../../hooks/useFirebaseAuth";
 export const Authenticator = () => {
-  const [
-    createUser,
-    {
-      data: registerdUserData,
-      isLoading: registrationLoading,
-      error: registrationErr,
-    },
-  ] = useCreateUserMutation();
-  const [
-    login,
-    { data: loggedUserData, isLoading: logInLoading, error: logInErr },
-  ] = useLogInMutation();
+  const {
+    signUpWithEmail,
+    signInWithEmailPassword,
+    user,
+    err: autheticationErr,
+  } = useFirebaseAuth();
   const [err, setErr] = useState("");
   const navigate = useNavigate();
-
-  // data response show dependency
-  const data = registerdUserData || loggedUserData;
-  const error = registrationErr || logInErr;
-  const isLoading = registrationLoading || logInLoading;
 
   // form field display condition
   const { pathname } = useLocation();
@@ -50,7 +37,8 @@ export const Authenticator = () => {
           password: userInfo.password,
           role: "student",
         };
-        createUser(newUser);
+        // createUser(newUser);
+        signUpWithEmail(newUser);
       } else {
         setErr("password do not match");
       }
@@ -58,14 +46,13 @@ export const Authenticator = () => {
 
     // user sign in
     if (isSignIn || isAdmin) {
-      login({ email: userInfo.email, password: userInfo.password });
+      signInWithEmailPassword(userInfo.email, userInfo.password);
     }
   };
 
   useEffect(() => {
-    if (data?.accessToken && data?.user) navigate("/video/1");
-    if (error?.data) setErr(error?.data);
-  }, [data, error, navigate]);
+    if (user?.uid) navigate("/video/1");
+  }, [navigate, user]);
   return (
     <>
       <section className="py-6 bg-primary h-screen grid place-items-center">
@@ -177,19 +164,21 @@ export const Authenticator = () => {
             <div>
               <button
                 type="submit"
-                className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 ${
-                  isLoading ? "bg-violet-900" : "bg-violet-600"
-                }`}
-                disabled={isLoading}
+                className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 
+                
+                `}
+                // disabled={isLoading}
               >
                 {isSignIn || isAdmin ? "Sign in" : "Create Account"}
               </button>
             </div>
           </form>
-          {err && (
+          {(err || autheticationErr) && (
             <div className="flex items-center justify-center py-3 bg-gray-900 mt-3 rounded-lg">
               <div className="text-sm">
-                <span className="text-red-600 capitalize">{err}</span>
+                <span className="text-red-600 capitalize">
+                  {err || autheticationErr}
+                </span>
               </div>
             </div>
           )}

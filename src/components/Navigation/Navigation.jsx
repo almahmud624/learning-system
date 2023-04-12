@@ -1,15 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/image/learningportal.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { userSignOut } from "../../features/auth/authSlice";
+import { useFirebaseAuth } from "../../hooks/useFirebaseAuth";
+import { useSelector } from "react-redux";
 export const Navigation = () => {
+  const { logOut } = useFirebaseAuth();
   const { user } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
-  const signOut = () => {
-    dispatch(userSignOut());
-    localStorage.removeItem("auth");
-  };
+
   const userCheck =
     pathname === "/admin" || pathname === "/" || pathname === "/registration";
   return (
@@ -30,7 +27,7 @@ export const Navigation = () => {
             )}
             <button
               className="flex gap-2 border border-red-500 bg-red-600 items-center px-4 py-1 rounded-full text-sm transition-all hover:bg-red-700 "
-              onClick={signOut}
+              onClick={logOut}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
